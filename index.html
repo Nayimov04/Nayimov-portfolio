@@ -984,7 +984,7 @@ footer .wrap {
           <div class="row proj">
             <h3 data-i18n="websiteTitle">Official website</h3>
             <p data-i18n="websiteText">
-              A professional digital identity built with HTML, CSS and JavaScript, hosted on Netlify.
+              A professional digital identity built with HTML, CSS and JavaScript, hosted on GitHub Pages.
             </p>
             <span class="status" data-i18n="inProgress">In progress</span>
           </div>
@@ -1049,7 +1049,7 @@ footer .wrap {
           </div>
           <div class="row proj">
             <h3>Web Engineering</h3>
-            <p>HTML5, Modern CSS3, JavaScript (ES6+), responsive design, and Netlify deployment.</p>
+            <p>HTML5, Modern CSS3, JavaScript (ES6+), responsive design, and GitHub deployment.</p>
             <span class="status">Experienced</span>
           </div>
         </div>
@@ -1169,7 +1169,7 @@ const translations = {
     tabSejong: "Sejong University",
     tabTech: "Tech Stack",
     websiteTitle: "Official website",
-    websiteText: "A professional digital identity built with HTML, CSS and JavaScript, hosted on Netlify.",
+    websiteText: "A professional digital identity built with HTML, CSS and JavaScript, hosted on GitHub Pages.",
     tradingTitle: "AI trading research tool",
     tradingText: "A planned Python project to analyse forex market data and explore trading ideas with AI for learning and research.",
     assistantTitle: "Personal AI assistant",
@@ -1215,13 +1215,13 @@ const translations = {
     technologyTitle: "기술과 인공지능",
     technologyText: "Python 프로그래밍과 자동화를 배우고, 실제 금융 문제에 인공지능을 적용하는 방법을 탐구합니다.",
     projectsTitle: "포트폴리오 및 프로젝트",
-    projectsIntro: "퀀트 트레이딩, 세종대학교 연구, 소프트웨어 개발 전반에 걸친 저의 작업들을 확인하세요.",
+    projectsIntro: "퀀트 트레이딩, 세종대학교 연구, 소프트웨어 개발 전반에 걸쳐 저의 작업들을 확인하세요.",
     tabProjects: "프로젝트",
     tabTrading: "트레이딩 & 퀀트",
     tabSejong: "세종대학교",
     tabTech: "기술 스택",
     websiteTitle: "공식 웹사이트",
-    websiteText: "HTML, CSS 및 JavaScript로 구축하고 Netlify에서 호스팅하는 전문 디지털 프로필입니다.",
+    websiteText: "HTML, CSS 및 JavaScript로 구축하고 GitHub Pages에서 호스팅하는 전문 디지털 프로필입니다.",
     tradingTitle: "AI 트레이딩 연구 도구",
     tradingText: "외환시장 데이터를 분석하고 학습 및 연구를 위해 AI로 트레이딩 아이디어를 탐구하는 Python 프로젝트입니다.",
     assistantTitle: "개인 AI 비서",
@@ -1273,7 +1273,7 @@ const translations = {
     tabSejong: "Sejong Universiteti",
     tabTech: "Texnologiyalar",
     websiteTitle: "Rasmiy veb-sayt",
-    websiteText: "HTML, CSS va JavaScript yordamida yaratilgan hamda Netlify platformasida joylashtirilgan professional raqamli profil.",
+    websiteText: "HTML, CSS va JavaScript yordamida yaratilgan hamda GitHub Pages platformasida joylashtirilgan professional raqamli profil.",
     tradingTitle: "AI treyding tadqiqot vositasi",
     tradingText: "Forex bozor ma’lumotlarini tahlil qilish uchun mo‘ljallangan Python loyihasi.",
     assistantTitle: "Shaxsiy AI yordamchi",
@@ -1429,7 +1429,7 @@ const translations = {
     tabSejong: "Sejong Universität",
     tabTech: "Tech-Stack",
     websiteTitle: "Offizielle Website",
-    websiteText: "Professionelle digitale Identität auf Netlify.",
+    websiteText: "Professionelle digitale Identität auf GitHub Pages.",
     tradingTitle: "KI-Tool für Trading-Forschung",
     tradingText: "Geplantes Python-Projekt zur Marktdatenanalyse.",
     assistantTitle: "Persönlicher KI-Assistent",
@@ -1479,8 +1479,16 @@ languageSelect.addEventListener("change", event => {
   setLanguage(event.target.value);
 });
 
-/* PRELOADER ANIMATION */
-window.addEventListener("load", () => {
+/* PRELOADER ANIMATION (SAFE DOMContentLoaded FALLBACK) */
+function hidePreloader() {
+  const preloader = document.getElementById("preloader");
+  if (preloader && preloader.style.display !== "none") {
+    preloader.style.opacity = "0";
+    setTimeout(() => preloader.style.display = "none", 500);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("preloader");
   const percentEl = document.getElementById("loader-percent");
   const statusEl = document.getElementById("loader-status");
@@ -1489,21 +1497,23 @@ window.addEventListener("load", () => {
   const statuses = ["Loading Market Data...", "Initializing Quant Models...", "Connecting Sejong Node...", "Ready"];
   
   const interval = setInterval(() => {
-    currentPercent += Math.floor(Math.random() * 15) + 8;
+    currentPercent += Math.floor(Math.random() * 20) + 12;
     if (currentPercent >= 100) {
       currentPercent = 100;
       clearInterval(interval);
-      setTimeout(() => {
-        preloader.style.opacity = "0";
-        setTimeout(() => preloader.style.display = "none", 500);
-      }, 300);
+      setTimeout(hidePreloader, 200);
     }
     percentEl.textContent = currentPercent + "%";
     if (currentPercent > 75) statusEl.textContent = statuses[3];
     else if (currentPercent > 50) statusEl.textContent = statuses[2];
     else if (currentPercent > 25) statusEl.textContent = statuses[1];
-  }, 40);
+  }, 30);
+
+  // Absolute safety fallback so it never stays stuck
+  setTimeout(hidePreloader, 1500);
 });
+
+window.addEventListener("load", hidePreloader);
 
 /* 3D TILT EFFECT FOR ID BADGE */
 const tiltCard = document.getElementById("tiltCard");
