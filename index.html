@@ -11,20 +11,20 @@
 
 <style>
 :root {
-  --bg: #060607;
-  --bg-card: rgba(16, 16, 20, 0.78);
+  --bg: #050507;
+  --bg-card: rgba(14, 14, 18, 0.82);
   --red: #C8102E;
-  --red-dark: #6e0716;
-  --red-glow: rgba(200, 16, 46, 0.45);
+  --red-dark: #7a081a;
+  --red-glow: rgba(200, 16, 46, 0.5);
   --ivory: #F4F1EC;
-  --mute: #A39E95;
-  --line: rgba(244, 241, 236, 0.14);
+  --mute: #9e9890;
+  --line: rgba(244, 241, 236, 0.15);
   --serif: 'Cormorant Garamond', Georgia, serif;
   --sans: 'Manrope', Arial, sans-serif;
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
 
 body {
   margin: 0;
@@ -32,89 +32,148 @@ body {
   color: var(--ivory);
   font: 400 1rem/1.7 var(--sans);
   overflow-x: hidden;
+  cursor: default;
 }
 
-/* ANIMATED RED-BLACK WAVE CANVAS & GRADIENT */
+/* CUSTOM RIPPLE / MOUSE CLICK EXPLOSION EFFECT */
+.click-ripple {
+  position: fixed;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 20px var(--red), 0 0 40px var(--ivory);
+  transform: translate(-50%, -50%) scale(1);
+  animation: clickBurst 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  pointer-events: none;
+  z-index: 999999;
+}
+
+@keyframes clickBurst {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+}
+
+/* MOUSE HOVER MAGNET / RIPPLE INTERACTIVITY FOR ALL CLICKABLES */
+a, button, .glass-card, .tv-symbol-btn, .lang-select, .tadow-chip {
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.15, 0.85, 0.35, 1.2), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+a:hover, button:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+/* ADVANCED MULTI-LAYER WAVE BACKGROUND */
 .wave-bg {
   position: fixed;
   inset: 0;
-  z-index: -2;
-  background: radial-gradient(circle at 20% 20%, #1c0408 0%, #060607 55%, #030304 100%);
+  z-index: -3;
+  background: radial-gradient(circle at 50% 30%, #150205 0%, #050507 65%, #020203 100%);
   overflow: hidden;
 }
 
 .wave-layer {
   position: absolute;
-  width: 220%;
-  height: 220%;
-  top: -60%;
-  left: -60%;
-  background:
-    radial-gradient(ellipse at 35% 40%, rgba(200, 16, 46, 0.28) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 65%, rgba(130, 8, 26, 0.24) 0%, transparent 55%);
-  animation: waveFlow 16s ease-in-out infinite alternate;
+  width: 250%; height: 250%;
+  top: -75%; left: -75%;
+  background: 
+    radial-gradient(ellipse at 30% 30%, rgba(200, 16, 46, 0.32) 0%, transparent 45%),
+    radial-gradient(ellipse at 70% 70%, rgba(120, 5, 20, 0.28) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(200, 16, 46, 0.15) 0%, transparent 65%);
+  animation: waveMotion 14s ease-in-out infinite alternate;
 }
 
 .wave-layer:nth-child(2) {
-  background:
-    radial-gradient(ellipse at 65% 30%, rgba(200, 16, 46, 0.2) 0%, transparent 48%),
-    radial-gradient(ellipse at 25% 75%, rgba(90, 5, 18, 0.28) 0%, transparent 55%);
-  animation: waveFlow 24s ease-in-out infinite alternate-reverse;
+  animation-duration: 20s;
+  animation-direction: alternate-reverse;
+  opacity: 0.75;
 }
 
-@keyframes waveFlow {
-  0% { transform: translate(-6%, -4%) rotate(0deg) scale(1); }
-  50% { transform: translate(6%, 5%) rotate(12deg) scale(1.08); }
-  100% { transform: translate(-4%, 8%) rotate(-8deg) scale(1.02); }
+@keyframes waveMotion {
+  0% { transform: translate(-8%, -6%) rotate(0deg) scale(1); }
+  50% { transform: translate(8%, 6%) rotate(180deg) scale(1.12); }
+  100% { transform: translate(-5%, 9%) rotate(360deg) scale(1.04); }
 }
 
 #waveCanvas {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
 }
 
-/* NAVIGATION */
+/* TOP BAR (CLOCK & 5+ LANGUAGES) */
 header {
   position: fixed;
-  top: 0; width: 100%; z-index: 100;
-  background: rgba(6, 6, 7, 0.85);
-  backdrop-filter: blur(14px);
+  top: 0; width: 100%; z-index: 1000;
+  background: rgba(5, 5, 7, 0.88);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--line);
 }
 
-.nav-container {
-  max-width: 1240px;
+.topbar {
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 1rem 2rem;
+  padding: 0.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  border-bottom: 1px solid rgba(244, 241, 236, 0.06);
+  font-size: 0.78rem;
+  color: var(--mute);
 }
 
-.brand {
-  font: 700 1.4rem var(--serif);
-  color: var(--ivory);
-  text-decoration: none;
-  letter-spacing: 0.04em;
+.clock-box {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.clock-box span { color: var(--red); font-weight: 700; }
+
+.lang-selector-box select {
+  background: #111116;
+  color: var(--ivory);
+  border: 1px solid var(--line);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  outline: none;
+}
+
+/* MAIN NAVIGATION */
+.nav-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0.9rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font: 700 1.35rem var(--serif);
+  color: var(--ivory);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
 .brand-dot {
-  width: 8px; height: 8px;
+  width: 9px; height: 9px;
   background: var(--red);
   border-radius: 50%;
-  box-shadow: 0 0 12px var(--red);
-  animation: pulseGlow 2s infinite;
+  box-shadow: 0 0 14px var(--red);
+  animation: pulseGlow 1.8s infinite;
 }
 
 .nav-links {
   display: flex;
-  gap: 1.35rem;
+  gap: 1.25rem;
   list-style: none;
   margin: 0; padding: 0;
   flex-wrap: wrap;
@@ -123,52 +182,107 @@ header {
 .nav-links a {
   text-decoration: none;
   color: var(--mute);
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   font-weight: 600;
-  position: relative;
-  padding-bottom: 4px;
   transition: color 0.3s;
 }
 
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 0; height: 2px;
-  background: var(--red);
-  transition: width 0.3s ease;
-}
-
 .nav-links a:hover { color: var(--ivory); }
-.nav-links a:hover::after { width: 100%; }
 
-.mobile-menu-btn {
-  display: none;
-  background: transparent;
-  border: 1px solid var(--line);
-  color: var(--ivory);
-  padding: 0.45rem 0.8rem;
-  border-radius: 6px;
-  cursor: pointer;
+/* ANIMATED ID CARD AT CENTER TOP RIGHT */
+.top-right-id-card {
+  position: fixed;
+  top: 75px; right: 25px;
+  z-index: 999;
+  width: 250px;
+  background: linear-gradient(135deg, rgba(20, 20, 26, 0.95) 0%, rgba(8, 8, 12, 0.95) 100%);
+  border: 1px solid var(--red);
+  border-radius: 12px;
+  padding: 0.9rem;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 20px var(--red-glow);
+  backdrop-filter: blur(14px);
+  animation: cardFloatEntry 1.2s cubic-bezier(0.15, 0.9, 0.3, 1) both, cardHoverBob 4s ease-in-out infinite 1.2s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* HERO SECTION */
+.top-right-id-card:hover {
+  transform: scale(1.04) translateY(-4px);
+  box-shadow: 0 18px 45px rgba(200, 16, 46, 0.4);
+}
+
+@keyframes cardFloatEntry {
+  from { opacity: 0; transform: translateY(-40px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cardHoverBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.id-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--red);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.4rem;
+}
+
+.id-card-body {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.id-avatar {
+  width: 50px; height: 60px;
+  background: #1c1c24;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  color: var(--red);
+  font-weight: 700;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.id-details h4 {
+  margin: 0 0 0.15rem;
+  font: 700 0.95rem var(--serif);
+  color: var(--ivory);
+}
+
+.id-details p {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--mute);
+}
+
+/* HERO */
 .hero {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 8rem 2rem 4rem;
+  padding: 9rem 2rem 5rem;
 }
 
-.hero-inner { max-width: 860px; }
+.hero-inner { max-width: 900px; }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.4rem 1rem;
+  padding: 0.4rem 1.1rem;
   border: 1px solid rgba(200, 16, 46, 0.5);
   background: rgba(200, 16, 46, 0.12);
   border-radius: 999px;
@@ -180,21 +294,21 @@ header {
 }
 
 h1 {
-  font: 700 clamp(3rem, 7.5vw, 5.8rem)/1.05 var(--serif);
+  font: 700 clamp(3.2rem, 8vw, 6.2rem)/1.02 var(--serif);
   margin: 0 0 1.2rem;
   animation: fadeInDown 1s 0.15s ease both;
 }
 
 h1 span {
   color: var(--red);
-  text-shadow: 0 0 35px var(--red-glow);
+  text-shadow: 0 0 40px var(--red-glow);
 }
 
 .hero p {
-  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-size: clamp(1.05rem, 2.1vw, 1.28rem);
   color: var(--mute);
-  max-width: 650px;
-  margin: 0 auto 2.2rem;
+  max-width: 680px;
+  margin: 0 auto 2.4rem;
   animation: fadeInUp 1s 0.3s ease both;
 }
 
@@ -207,7 +321,7 @@ h1 span {
 }
 
 .btn-primary, .btn-outline {
-  padding: 0.9rem 1.8rem;
+  padding: 0.95rem 1.9rem;
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.92rem;
@@ -227,8 +341,8 @@ h1 span {
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(200, 16, 46, 0.65);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 14px 35px rgba(200, 16, 46, 0.7);
 }
 
 .btn-outline {
@@ -240,20 +354,20 @@ h1 span {
 .btn-outline:hover {
   border-color: var(--red);
   background: rgba(200, 16, 46, 0.12);
-  transform: translateY(-3px);
+  transform: translateY(-4px) scale(1.03);
 }
 
-/* SECTIONS & SCROLL REVEAL */
+/* SECTIONS & REVEAL */
 section {
-  padding: 5.5rem 2rem;
-  max-width: 1140px;
+  padding: 6rem 2rem;
+  max-width: 1180px;
   margin: 0 auto;
 }
 
 .reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(35px);
+  transition: opacity 0.85s ease, transform 0.85s ease;
 }
 
 .reveal.visible {
@@ -262,7 +376,7 @@ section {
 }
 
 h2 {
-  font: 700 clamp(2.1rem, 4vw, 2.9rem)/1.2 var(--serif);
+  font: 700 clamp(2.2rem, 4.2vw, 3.1rem)/1.2 var(--serif);
   margin: 0 0 0.6rem;
   border-left: 4px solid var(--red);
   padding-left: 1rem;
@@ -270,25 +384,25 @@ h2 {
 
 .section-sub {
   color: var(--mute);
-  margin: 0 0 2.4rem 1.25rem;
-  font-size: 0.95rem;
+  margin: 0 0 2.6rem 1.25rem;
+  font-size: 0.96rem;
 }
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  gap: 1.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.85rem;
 }
 
 .glass-card {
   background: var(--bg-card);
   border: 1px solid var(--line);
-  padding: 2rem;
+  padding: 2.2rem;
   border-radius: 14px;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
   position: relative;
   overflow: hidden;
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.35s cubic-bezier(0.15,0.85,0.35,1.2), border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .glass-card::before {
@@ -303,48 +417,48 @@ h2 {
 .glass-card:hover::before { left: 100%; }
 
 .glass-card:hover {
-  transform: translateY(-7px);
+  transform: translateY(-8px) scale(1.01);
   border-color: var(--red);
-  box-shadow: 0 14px 35px rgba(200, 16, 46, 0.25);
+  box-shadow: 0 16px 40px rgba(200, 16, 46, 0.3);
 }
 
 .card-tag {
   display: inline-block;
-  font-size: 0.72rem;
+  font-size: 0.73rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--red);
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.75rem;
 }
 
 .glass-card h3 {
-  font: 700 1.4rem/1.3 var(--serif);
-  margin: 0 0 0.7rem;
+  font: 700 1.45rem/1.3 var(--serif);
+  margin: 0 0 0.75rem;
   color: var(--ivory);
 }
 
 .glass-card p {
   color: var(--mute);
-  font-size: 0.94rem;
+  font-size: 0.95rem;
   margin: 0;
 }
 
-/* TRADINGVIEW SECTION */
+/* TRADINGVIEW TERMINAL */
 .tv-toolbar {
   display: flex;
-  gap: 0.6rem;
+  gap: 0.65rem;
   flex-wrap: wrap;
-  margin-bottom: 1rem;
+  margin-bottom: 1.1rem;
 }
 
 .tv-symbol-btn {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--line);
   color: var(--ivory);
-  padding: 0.45rem 0.95rem;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.25s;
@@ -353,66 +467,64 @@ h2 {
 .tv-symbol-btn.active, .tv-symbol-btn:hover {
   background: var(--red);
   border-color: var(--red);
+  transform: translateY(-2px);
 }
 
 .tradingview-container {
   background: var(--bg-card);
   border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 1rem;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.65);
+  border-radius: 16px;
+  padding: 1.1rem;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.7);
 }
 
 .tradingview-widget-container {
-  height: 560px;
+  height: 580px;
   width: 100%;
 }
 
-/* TADOW AI FLOATING WIDGET */
+/* TADOW AI WIDGET */
 .tadow-ai-float {
   position: fixed;
-  bottom: 28px;
-  right: 28px;
-  z-index: 999;
+  bottom: 30px; right: 30px;
+  z-index: 10000;
 }
 
 .tadow-launcher {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  background: linear-gradient(135deg, var(--red) 0%, #85081b 100%);
+  gap: 0.7rem;
+  background: linear-gradient(135deg, var(--red) 0%, #7d0718 100%);
   color: var(--ivory);
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 0.85rem 1.3rem;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 0.9rem 1.4rem;
   border-radius: 999px;
   cursor: pointer;
   font-weight: 700;
-  font-size: 0.9rem;
-  box-shadow: 0 8px 28px var(--red-glow);
+  font-size: 0.92rem;
+  box-shadow: 0 10px 30px var(--red-glow);
   animation: floatBob 3s ease-in-out infinite;
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .tadow-launcher:hover {
-  transform: scale(1.06);
-  box-shadow: 0 12px 35px rgba(200, 16, 46, 0.75);
+  transform: scale(1.08) translateY(-3px);
+  box-shadow: 0 14px 40px rgba(200, 16, 46, 0.8);
 }
 
 .tadow-window {
   position: absolute;
-  bottom: 72px;
-  right: 0;
-  width: 370px;
-  max-width: calc(100vw - 40px);
-  height: 500px;
-  background: rgba(12, 12, 16, 0.96);
+  bottom: 75px; right: 0;
+  width: 380px; max-width: calc(100vw - 40px);
+  height: 520px;
+  background: rgba(10, 10, 14, 0.97);
   border: 1px solid var(--red);
-  border-radius: 16px;
+  border-radius: 18px;
   display: none;
   flex-direction: column;
-  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.88), 0 0 25px rgba(200, 16, 46, 0.25);
-  backdrop-filter: blur(16px);
+  box-shadow: 0 22px 60px rgba(0,0,0,0.9), 0 0 30px rgba(200, 16, 46, 0.3);
+  backdrop-filter: blur(18px);
   overflow: hidden;
   animation: fadeInUp 0.3s ease;
 }
@@ -420,8 +532,8 @@ h2 {
 .tadow-window.active { display: flex; }
 
 .tadow-header {
-  background: linear-gradient(90deg, var(--red) 0%, #7d0719 100%);
-  padding: 0.95rem 1.1rem;
+  background: linear-gradient(90deg, var(--red) 0%, #7d0718 100%);
+  padding: 1rem 1.2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -430,38 +542,38 @@ h2 {
 .tadow-title {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.6rem;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
 }
 
 .tadow-status {
-  font-size: 0.7rem;
-  background: rgba(0,0,0,0.3);
-  padding: 0.15rem 0.5rem;
+  font-size: 0.72rem;
+  background: rgba(0,0,0,0.35);
+  padding: 0.2rem 0.55rem;
   border-radius: 999px;
 }
 
 .tadow-messages {
   flex-grow: 1;
-  padding: 1rem;
+  padding: 1.1rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
-  font-size: 0.88rem;
+  gap: 0.9rem;
+  font-size: 0.9rem;
 }
 
 .msg {
-  padding: 0.7rem 0.95rem;
+  padding: 0.75rem 1rem;
   border-radius: 10px;
   max-width: 86%;
-  line-height: 1.5;
+  line-height: 1.55;
   word-wrap: break-word;
 }
 
 .msg.ai {
-  background: #1a1a22;
+  background: #181820;
   color: var(--ivory);
   align-self: flex-start;
   border-left: 3px solid var(--red);
@@ -475,8 +587,8 @@ h2 {
 
 .tadow-suggestions {
   display: flex;
-  gap: 0.4rem;
-  padding: 0.5rem 0.8rem;
+  gap: 0.45rem;
+  padding: 0.55rem 0.9rem;
   overflow-x: auto;
   border-top: 1px solid rgba(255,255,255,0.06);
 }
@@ -485,8 +597,8 @@ h2 {
   background: rgba(255,255,255,0.06);
   border: 1px solid var(--line);
   color: var(--mute);
-  font-size: 0.72rem;
-  padding: 0.3rem 0.65rem;
+  font-size: 0.74rem;
+  padding: 0.35rem 0.75rem;
   border-radius: 999px;
   white-space: nowrap;
   cursor: pointer;
@@ -496,29 +608,30 @@ h2 {
 .tadow-chip:hover {
   border-color: var(--red);
   color: var(--ivory);
+  transform: translateY(-2px);
 }
 
 .tadow-input-area {
   display: flex;
   border-top: 1px solid var(--line);
-  background: #08080b;
+  background: #060608;
 }
 
 .tadow-input-area input {
   flex-grow: 1;
   background: transparent;
   border: none;
-  padding: 0.9rem;
+  padding: 0.95rem;
   color: var(--ivory);
   outline: none;
-  font-size: 0.86rem;
+  font-size: 0.88rem;
 }
 
 .tadow-input-area button {
   background: var(--red);
   border: none;
   color: var(--ivory);
-  padding: 0 1.2rem;
+  padding: 0 1.3rem;
   cursor: pointer;
   font-weight: 700;
   transition: background 0.2s;
@@ -528,70 +641,105 @@ h2 {
 
 footer {
   text-align: center;
-  padding: 3rem 2rem;
+  padding: 3.5rem 2rem;
   border-top: 1px solid var(--line);
   color: var(--mute);
-  font-size: 0.85rem;
+  font-size: 0.86rem;
 }
 
 @keyframes pulseGlow {
   0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(1.3); }
+  50% { opacity: 0.4; transform: scale(1.35); }
 }
 
 @keyframes floatBob {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+  50% { transform: translateY(-6px); }
 }
 
 @keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-22px); }
+  from { opacity: 0; transform: translateY(-24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(22px); }
+  from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 860px) {
-  .mobile-menu-btn { display: block; }
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 100%; left: 0; right: 0;
-    background: rgba(6, 6, 7, 0.97);
-    flex-direction: column;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid var(--line);
-  }
-  .nav-links.open { display: flex; }
+@media (max-width: 900px) {
+  .top-right-id-card { display: none; }
+  .nav-links { display: none; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- RED & BLACK WAVE BACKGROUND -->
+<!-- RIPPLE EFFECT SCRIPT LISTENER -->
+<script>
+document.addEventListener("click", function(e) {
+  const ripple = document.createElement("div");
+  ripple.className = "click-ripple";
+  ripple.style.left = `${e.clientX}px`;
+  ripple.style.top = `${e.clientY}px`;
+  document.body.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 600);
+});
+</script>
+
+<!-- ANIMATED ID CARD AT CENTER TOP RIGHT -->
+<div class="top-right-id-card">
+  <div class="id-card-header">
+    <span>Sejong University ID</span>
+    <span style="color:var(--ivory);">● LIVE</span>
+  </div>
+  <div class="id-card-body">
+    <div class="id-avatar">NU</div>
+    <div class="id-details">
+      <h4>Ulugbek Nayimov</h4>
+      <p>Business & Quant</p>
+      <p style="color:var(--red); font-weight:600; margin-top:2px;">SJU-2026-TR</p>
+    </div>
+  </div>
+</div>
+
+<!-- MULTI-LAYER WAVE BACKGROUND & CANVAS -->
 <div class="wave-bg">
   <div class="wave-layer"></div>
   <div class="wave-layer"></div>
 </div>
 <canvas id="waveCanvas"></canvas>
 
-<!-- NAVIGATION -->
+<!-- HEADER WITH REAL-TIME CLOCK & 6 LANGUAGES -->
 <header>
+  <div class="topbar">
+    <div class="clock-box">
+      <i class="fa-regular fa-clock" style="color:var(--red);"></i>
+      <span>SEOUL TIME:</span> <span id="liveClock">00:00:00</span> (KST)
+    </div>
+    <div class="lang-selector-box">
+      <select id="langSelect" aria-label="Select Language">
+        <option value="en">English</option>
+        <option value="ko">한국어 (Korean)</option>
+        <option value="uz">O‘zbekcha (Uzbek)</option>
+        <option value="ru">Русский (Russian)</option>
+        <option value="es">Español (Spanish)</option>
+        <option value="de">Deutsch (German)</option>
+      </select>
+    </div>
+  </div>
+
   <div class="nav-container">
     <a href="#home" class="brand"><span class="brand-dot"></span> Nayimov Ulugbek</a>
-    <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fa-solid fa-bars"></i></button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#about">About Me</a></li>
-      <li><a href="#achievements">Achievements</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#academic">Academic Period</a></li>
-      <li><a href="#sejong">Sejong University</a></li>
-      <li><a href="#tradingview">TradingView</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul class="nav-links">
+      <li><a href="#about" data-i18n="navAbout">About Me</a></li>
+      <li><a href="#achievements" data-i18n="navAch">Achievements</a></li>
+      <li><a href="#projects" data-i18n="navProj">Projects</a></li>
+      <li><a href="#academic" data-i18n="navAcad">Academic Period</a></li>
+      <li><a href="#sejong" data-i18n="navSejong">Sejong University</a></li>
+      <li><a href="#tradingview" data-i18n="navTV">TradingView</a></li>
+      <li><a href="#contact" data-i18n="navContact">Contact</a></li>
     </ul>
   </div>
 </header>
@@ -599,118 +747,118 @@ footer {
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-inner">
-    <div class="hero-badge"><i class="fa-solid fa-chart-line"></i> Sejong University • Quant & Tech</div>
-    <h1>Nayimov <span>Ulugbek</span></h1>
-    <p>Business & Finance Student in Seoul, Quantitative Trader, and Python Developer bridging global financial markets with modern technology.</p>
+    <div class="hero-badge"><i class="fa-solid fa-chart-line"></i> Sejong University • Quant Trader & Developer</div>
+    <h1 data-i18n="heroTitle">Nayimov <span>Ulugbek</span></h1>
+    <p data-i18n="heroDesc">Business & Finance student in Seoul, quantitative trader, and Python developer connecting global markets with high-performance software.</p>
     <div class="hero-actions">
-      <a href="#tradingview" class="btn-primary"><i class="fa-solid fa-candlestick-chart"></i> Open TradingView Charts</a>
-      <button class="btn-outline" id="heroTadowBtn"><i class="fa-solid fa-robot"></i> Ask Tadow AI</button>
+      <a href="#tradingview" class="btn-primary" data-i18n="heroBtn1"><i class="fa-solid fa-candlestick-chart"></i> Launch Live Charts</a>
+      <button class="btn-outline" id="heroTadowBtn" data-i18n="heroBtn2"><i class="fa-solid fa-robot"></i> Ask Tadow AI</button>
     </div>
   </div>
 </section>
 
 <!-- 1. ABOUT ME -->
 <section id="about" class="reveal">
-  <h2>About Me</h2>
-  <p class="section-sub">Background, mindset, and intersection of finance & software.</p>
+  <h2 data-i18n="aboutTitle">About Me</h2>
+  <p class="section-sub" data-i18n="aboutSub">Background, mindset, and intersection of finance & software.</p>
   <div class="glass-card">
-    <span class="card-tag">Profile Overview</span>
-    <h3>Finance-Focused. Technology-Driven.</h3>
-    <p>I am Nayimov Ulugbek, a business and finance student at Sejong University in Seoul, originally from Uzbekistan. My work sits where global financial markets, quantitative trading, and software engineering intersect. I study market structure, practice disciplined risk management, and build Python tools to automate research and execution—maintaining a steady routine both in the markets and in daily training.</p>
+    <span class="card-tag" data-i18n="aboutTag">Profile Overview</span>
+    <h3 data-i18n="aboutHead">Finance-Focused. Technology-Driven.</h3>
+    <p data-i18n="aboutText">I am Nayimov Ulugbek, a business and finance student at Sejong University in Seoul, originally from Uzbekistan. My work sits where global financial markets, quantitative trading, and software engineering intersect. I study market structure, practice disciplined risk management, and build Python tools to automate research and execution—maintaining a steady routine both in the markets and in daily training.</p>
   </div>
 </section>
 
 <!-- 2. ACHIEVEMENTS -->
 <section id="achievements" class="reveal">
-  <h2>Achievements</h2>
-  <p class="section-sub">Key milestones across quantitative research, academics, and strategy.</p>
+  <h2 data-i18n="achTitle">Achievements</h2>
+  <p class="section-sub" data-i18n="achSub">Key milestones across quantitative research, academics, and strategy.</p>
   <div class="card-grid">
     <div class="glass-card">
-      <span class="card-tag">Quantitative Finance</span>
-      <h3>Algorithmic Backtesting Engine</h3>
-      <p>Engineered automated Python scripts to test historical forex and equity price action, drawdown limits, and risk-to-reward metrics.</p>
+      <span class="card-tag" data-i18n="ach1Tag">Quantitative Finance</span>
+      <h3 data-i18n="ach1Head">Algorithmic Backtesting Engine</h3>
+      <p data-i18n="ach1Text">Engineered automated Python scripts to test historical forex and equity price action, drawdown limits, and risk-to-reward metrics.</p>
     </div>
     <div class="glass-card">
-      <span class="card-tag">Academic & Strategy</span>
-      <h3>Consumer Behavior & Brand Strategy</h3>
-      <p>Delivered collaborative consumer behavior marketing research and strategic brand presentations at Sejong University.</p>
+      <span class="card-tag" data-i18n="ach2Tag">Academic & Strategy</span>
+      <h3 data-i18n="ach2Head">Consumer Behavior & Brand Strategy</h3>
+      <p data-i18n="ach2Text">Delivered collaborative consumer behavior marketing research and strategic brand presentations at Sejong University.</p>
     </div>
     <div class="glass-card">
-      <span class="card-tag">Risk & Execution</span>
-      <h3>Disciplined Capital Framework</h3>
-      <p>Developed structured position-sizing rules and multi-session market tracking workflows for consistent execution.</p>
+      <span class="card-tag" data-i18n="ach3Tag">Risk & Execution</span>
+      <h3 data-i18n="ach3Head">Disciplined Capital Framework</h3>
+      <p data-i18n="ach3Text">Developed structured position-sizing rules and multi-session market tracking workflows for consistent execution.</p>
     </div>
   </div>
 </section>
 
 <!-- 3. PROJECTS -->
 <section id="projects" class="reveal">
-  <h2>Projects</h2>
-  <p class="section-sub">Software, AI tools, and trading infrastructure.</p>
+  <h2 data-i18n="projTitle">Projects</h2>
+  <p class="section-sub" data-i18n="projSub">Software, AI tools, and trading infrastructure.</p>
   <div class="card-grid">
     <div class="glass-card">
-      <span class="card-tag">AI & Web Engineering</span>
-      <h3>Interactive Quant Portfolio & Tadow AI</h3>
-      <p>Full-stack dark-mode web platform featuring animated red-black wave graphics, embedded TradingView charts, and an integrated general-purpose AI assistant.</p>
+      <span class="card-tag" data-i18n="proj1Tag">AI & Web Engineering</span>
+      <h3 data-i18n="proj1Head">Interactive Quant Portfolio & Tadow AI</h3>
+      <p data-i18n="proj1Text">Full-stack dark-mode web platform featuring animated red-black wave graphics, embedded TradingView charts, and an integrated general-purpose AI assistant.</p>
     </div>
     <div class="glass-card">
-      <span class="card-tag">Python & Markets</span>
-      <h3>AI Forex & Market Research Tool</h3>
-      <p>Python data-analysis pipeline utilizing Pandas and NumPy to detect market volatility regimes and evaluate technical setups.</p>
+      <span class="card-tag" data-i18n="proj2Tag">Python & Markets</span>
+      <h3 data-i18n="proj2Head">AI Forex & Market Research Tool</h3>
+      <p data-i18n="proj2Text">Python data-analysis pipeline utilizing Pandas and NumPy to detect market volatility regimes and evaluate technical setups.</p>
     </div>
     <div class="glass-card">
-      <span class="card-tag">Automation</span>
-      <h3>Market Price Alert Assistant</h3>
-      <p>Automated monitoring script designed to track key liquidity levels and send real-time notifications during active trading sessions.</p>
+      <span class="card-tag" data-i18n="proj3Tag">Automation</span>
+      <h3 data-i18n="proj3Head">Market Price Alert Assistant</h3>
+      <p data-i18n="proj3Text">Automated monitoring script designed to track key liquidity levels and send real-time notifications during active trading sessions.</p>
     </div>
   </div>
 </section>
 
 <!-- 4. ACADEMIC PERIOD -->
 <section id="academic" class="reveal">
-  <h2>Academic Period</h2>
-  <p class="section-sub">Core coursework, technical training, and timeline at Sejong University.</p>
+  <h2 data-i18n="acadTitle">Academic Period</h2>
+  <p class="section-sub" data-i18n="acadSub">Core coursework, technical training, and timeline at Sejong University.</p>
   <div class="card-grid">
     <div class="glass-card">
-      <span class="card-tag">Computer Science & Coding</span>
-      <h3>Advanced Python Programming</h3>
-      <p>Hands-on software development covering user-defined functions, data structures, set operations, list comprehensions, and algorithmic problem solving.</p>
+      <span class="card-tag" data-i18n="acad1Tag">Computer Science & Coding</span>
+      <h3 data-i18n="acad1Head">Advanced Python Programming</h3>
+      <p data-i18n="acad1Text">Hands-on software development covering user-defined functions, data structures, set operations, list comprehensions, and algorithmic problem solving.</p>
     </div>
     <div class="glass-card">
-      <span class="card-tag">Business & Finance</span>
-      <h3>Managerial Accounting & Corporate Finance</h3>
-      <p>Financial statement analysis, cost behavior modeling, capital budgeting, and valuation frameworks for modern enterprises.</p>
+      <span class="card-tag" data-i18n="acad2Tag">Business & Finance</span>
+      <h3 data-i18n="acad2Head">Managerial Accounting & Corporate Finance</h3>
+      <p data-i18n="acad2Text">Financial statement analysis, cost behavior modeling, capital budgeting, and valuation frameworks for modern enterprises.</p>
     </div>
     <div class="glass-card">
-      <span class="card-tag">Market Strategy</span>
-      <h3>Consumer Behavior & Marketing</h3>
-      <p>Analytical research into buyer psychology, market segmentation, and competitive positioning in global markets.</p>
+      <span class="card-tag" data-i18n="acad3Tag">Market Strategy</span>
+      <h3 data-i18n="acad3Head">Consumer Behavior & Marketing</h3>
+      <p data-i18n="acad3Text">Analytical research into buyer psychology, market segmentation, and competitive positioning in global markets.</p>
     </div>
   </div>
 </section>
 
 <!-- 5. SEJONG UNIVERSITY -->
 <section id="sejong" class="reveal">
-  <h2>Sejong University</h2>
-  <p class="section-sub">Academic life, campus environment, and business studies in Seoul, South Korea.</p>
+  <h2 data-i18n="sejongTitle">Sejong University</h2>
+  <p class="section-sub" data-i18n="sejongSub">Academic life, campus environment, and business studies in Seoul, South Korea.</p>
   <div class="card-grid">
     <div class="glass-card">
-      <span class="card-tag">Institution • Seoul, Korea</span>
-      <h3>College of Business Administration</h3>
-      <p>Located in Gwangjin-gu, Seoul, Sejong University provides an international academic hub combining rigorous business economics with quantitative and technological innovation.</p>
+      <span class="card-tag" data-i18n="sejong1Tag">Institution • Seoul, Korea</span>
+      <h3 data-i18n="sejong1Head">College of Business Administration</h3>
+      <p data-i18n="sejong1Text">Located in Gwangjin-gu, Seoul, Sejong University provides an international academic hub combining rigorous business economics with quantitative and technological innovation.</p>
     </div>
     <div class="glass-card">
-      <span class="card-tag">Research & Collaboration</span>
-      <h3>Global Student Community</h3>
-      <p>Collaborating with fellow business and engineering students on cross-cultural case studies, financial market presentations, and programming projects.</p>
+      <span class="card-tag" data-i18n="sejong2Tag">Research & Collaboration</span>
+      <h3 data-i18n="sejong2Head">Global Student Community</h3>
+      <p data-i18n="sejong2Text">Collaborating with fellow business and engineering students on cross-cultural case studies, financial market presentations, and programming projects.</p>
     </div>
   </div>
 </section>
 
 <!-- 6. LIVE TRADINGVIEW SECTION -->
 <section id="tradingview" class="reveal">
-  <h2>TradingView Live Terminal</h2>
-  <p class="section-sub">Switch markets or search any ticker directly inside the interactive chart to analyze price action.</p>
+  <h2 data-i18n="tvTitle">TradingView Live Terminal</h2>
+  <p class="section-sub" data-i18n="tvSub">Switch markets or search any ticker directly inside the interactive chart to analyze price action.</p>
 
   <div class="tv-toolbar">
     <button class="tv-symbol-btn active" data-symbol="FX:EURUSD">EUR/USD</button>
@@ -727,18 +875,18 @@ footer {
 
 <!-- 7. CONTACT -->
 <section id="contact" class="reveal">
-  <h2>Contact</h2>
-  <p class="section-sub">Connect for trading research, collaborations, or software projects.</p>
+  <h2 data-i18n="contactTitle">Contact</h2>
+  <p class="section-sub" data-i18n="contactSub">Connect for trading research, collaborations, or software projects.</p>
   <div class="card-grid">
     <div class="glass-card">
-      <span class="card-tag">Direct Email</span>
-      <h3>Inquiries & Collaboration</h3>
+      <span class="card-tag" data-i18n="contact1Tag">Direct Email</span>
+      <h3 data-i18n="contact1Head">Inquiries & Collaboration</h3>
       <p><strong>Personal:</strong> <a href="mailto:Mr.Nayimov@gmail.com" style="color:var(--red);">Mr.Nayimov@gmail.com</a></p>
       <p style="margin-top:0.5rem;"><strong>University:</strong> <a href="mailto:unayimov@sju.ac.kr" style="color:var(--red);">unayimov@sju.ac.kr</a></p>
     </div>
     <div class="glass-card">
-      <span class="card-tag">Networks</span>
-      <h3>Social & Code Repositories</h3>
+      <span class="card-tag" data-i18n="contact2Tag">Networks</span>
+      <h3 data-i18n="contact2Head">Social & Code Repositories</h3>
       <p><strong>GitHub:</strong> <a href="https://github.com/Nayimov04" target="_blank" rel="noopener" style="color:var(--red);">github.com/Nayimov04</a></p>
       <p style="margin-top:0.5rem;"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/ulugbek-nayimov-4b9783261/" target="_blank" rel="noopener" style="color:var(--red);">Ulugbek Nayimov</a></p>
       <p style="margin-top:0.5rem;"><strong>Instagram:</strong> <a href="https://www.instagram.com/unayimov7/" target="_blank" rel="noopener" style="color:var(--red);">@unayimov7</a></p>
@@ -758,7 +906,7 @@ footer {
       <div class="tadow-title">
         <i class="fa-solid fa-bolt"></i>
         <span>Tadow AI</span>
-        <span class="tadow-status">Online • General & Portfolio AI</span>
+        <span class="tadow-status" data-i18n="aiStatus">Online • Smart Assistant</span>
       </div>
       <button id="tadowClose" style="background:none; border:none; color:var(--ivory); cursor:pointer; font-size:1.1rem;">
         <i class="fa-solid fa-xmark"></i>
@@ -766,7 +914,7 @@ footer {
     </div>
 
     <div class="tadow-messages" id="tadowMessages">
-      <div class="msg ai">Welcome! I am <strong>Tadow AI</strong>. Ask me anything about <strong>Nayimov Ulugbek</strong>, his Sejong University studies, trading projects—or ask me any general question on any topic!</div>
+      <div class="msg ai" data-i18n="aiWelcome">Hello! I am <strong>Tadow AI</strong>. Ask me anything about <strong>Nayimov Ulugbek</strong>, his Sejong University studies, trading strategies—or ask me any general question on any topic!</div>
     </div>
 
     <div class="tadow-suggestions">
@@ -776,7 +924,7 @@ footer {
     </div>
 
     <div class="tadow-input-area">
-      <input type="text" id="tadowInput" placeholder="Ask Tadow AI anything..." />
+      <input type="text" id="tadowInput" placeholder="Ask Tadow AI anything..." data-i18n-placeholder="aiPlaceholder" />
       <button id="tadowSend"><i class="fa-solid fa-paper-plane"></i></button>
     </div>
   </div>
@@ -789,13 +937,185 @@ footer {
 <script>
 document.getElementById("year").textContent = new Date().getFullYear();
 
-/* MOBILE MENU */
-const mobileMenuBtn = document.getElementById("mobileMenuBtn");
-const navLinks = document.getElementById("navLinks");
-mobileMenuBtn.addEventListener("click", () => navLinks.classList.toggle("open"));
-navLinks.addEventListener("click", e => { if (e.target.tagName === "A") navLinks.classList.remove("open"); });
+/* REAL-TIME SEOUL CLOCK */
+function updateSeoulClock() {
+  const now = new Date();
+  const options = { timeZone: 'Asia/Seoul', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+  document.getElementById("liveClock").textContent = new Intl.DateTimeFormat('en-GB', options).format(now);
+}
+setInterval(updateSeoulClock, 1000);
+updateSeoulClock();
 
-/* ANIMATED RED-BLACK WAVE CANVAS */
+/* 6 LANGUAGES TRANSLATION DICTIONARY */
+const translations = {
+  en: {
+    navAbout: "About Me", navAch: "Achievements", navProj: "Projects", navAcad: "Academic Period", navSejong: "Sejong University", navTV: "TradingView", navContact: "Contact",
+    heroTitle: "Nayimov <span>Ulugbek</span>", heroDesc: "Business & Finance student in Seoul, quantitative trader, and Python developer connecting global markets with high-performance software.",
+    heroBtn1: "Launch Live Charts", heroBtn2: "Ask Tadow AI",
+    aboutTitle: "About Me", aboutSub: "Background, mindset, and intersection of finance & software.", aboutTag: "Profile Overview", aboutHead: "Finance-Focused. Technology-Driven.", aboutText: "I am Nayimov Ulugbek, a business and finance student at Sejong University in Seoul, originally from Uzbekistan. My work sits where global financial markets, quantitative trading, and software engineering intersect. I study market structure, practice disciplined risk management, and build Python tools to automate research and execution—maintaining a steady routine both in the markets and in daily training.",
+    achTitle: "Achievements", achSub: "Key milestones across quantitative research, academics, and strategy.",
+    ach1Tag: "Quantitative Finance", ach1Head: "Algorithmic Backtesting Engine", ach1Text: "Engineered automated Python scripts to test historical forex and equity price action, drawdown limits, and risk-to-reward metrics.",
+    ach2Tag: "Academic & Strategy", ach2Head: "Consumer Behavior & Brand Strategy", ach2Text: "Delivered collaborative consumer behavior marketing research and strategic brand presentations at Sejong University.",
+    ach3Tag: "Risk & Execution", ach3Head: "Disciplined Capital Framework", ach3Text: "Developed structured position-sizing rules and multi-session market tracking workflows for consistent execution.",
+    projTitle: "Projects", projSub: "Software, AI tools, and trading infrastructure.",
+    proj1Tag: "AI & Web Engineering", proj1Head: "Interactive Quant Portfolio & Tadow AI", proj1Text: "Full-stack dark-mode web platform featuring animated red-black wave graphics, embedded TradingView charts, and an integrated general-purpose AI assistant.",
+    proj2Tag: "Python & Markets", proj2Head: "AI Forex & Market Research Tool", proj2Text: "Python data-analysis pipeline utilizing Pandas and NumPy to detect market volatility regimes and evaluate technical setups.",
+    proj3Tag: "Automation", proj3Head: "Market Price Alert Assistant", proj3Text: "Automated monitoring script designed to track key liquidity levels and send real-time notifications during active trading sessions.",
+    acadTitle: "Academic Period", acadSub: "Core coursework, technical training, and timeline at Sejong University.",
+    acad1Tag: "Computer Science & Coding", acad1Head: "Advanced Python Programming", acad1Text: "Hands-on software development covering user-defined functions, data structures, set operations, list comprehensions, and algorithmic problem solving.",
+    acad2Tag: "Business & Finance", acad2Head: "Managerial Accounting & Corporate Finance", acad2Text: "Financial statement analysis, cost behavior modeling, capital budgeting, and valuation frameworks for modern enterprises.",
+    acad3Tag: "Market Strategy", acad3Head: "Consumer Behavior & Marketing", acad3Text: "Analytical research into buyer psychology, market segmentation, and competitive positioning in global markets.",
+    sejongTitle: "Sejong University", sejongSub: "Academic life, campus environment, and business studies in Seoul, South Korea.",
+    sejong1Tag: "Institution • Seoul, Korea", sejong1Head: "College of Business Administration", sejong1Text: "Located in Gwangjin-gu, Seoul, Sejong University provides an international academic hub combining rigorous business economics with quantitative and technological innovation.",
+    sejong2Tag: "Research & Collaboration", sejong2Head: "Global Student Community", sejong2Text: "Collaborating with fellow business and engineering students on cross-cultural case studies, financial market presentations, and programming projects.",
+    tvTitle: "TradingView Live Terminal", tvSub: "Switch markets or search any ticker directly inside the interactive chart to analyze price action.",
+    contactTitle: "Contact", contactSub: "Connect for trading research, collaborations, or software projects.",
+    contact1Tag: "Direct Email", contact1Head: "Inquiries & Collaboration", contact2Tag: "Networks", contact2Head: "Social & Code Repositories",
+    aiStatus: "Online • Smart Assistant", aiWelcome: "Hello! I am <strong>Tadow AI</strong>. Ask me anything about <strong>Nayimov Ulugbek</strong>, his Sejong University studies, trading strategies—or ask me any general question on any topic!", aiPlaceholder: "Ask Tadow AI anything..."
+  },
+  ko: {
+    navAbout: "소개", navAch: "성과", navProj: "프로젝트", navAcad: "학업 과정", navSejong: "세종대학교", navTV: "트레이딩뷰", navContact: "연락처",
+    heroTitle: "나이모프 <span>울루그벡</span>", heroDesc: "서울의 경영/금융 전공 학생, 퀀트 트레이더, 그리고 글로벌 금융시장과 소프트웨어를 연결하는 파이썬 개발자.",
+    heroBtn1: "실시간 차트 실행", heroBtn2: "타도 AI에게 질문",
+    aboutTitle: "소개", aboutSub: "배경, 마인드셋, 그리고 금융과 소프트웨어의 융합.", aboutTag: "프로필 개요", aboutHead: "금융 중심. 기술 주도.", aboutText: "저는 우즈베키스탄 출신으로 서울 세종대학교에서 경영학과 금융을 공부하고 있는 나이모프 울루그벡입니다. 제 연구와 업무는 글로벌 금융시장, 퀀트 트레이딩, 그리고 소프트웨어 공학이 만나는 지점에 있습니다. 시장 구조를 연구하고, 규율 있는 리스크 관리를 실천하며, 연구와 실행을 자동화하는 파이썬 도구를 구축합니다.",
+    achTitle: "성과", achSub: "퀀트 연구, 학업, 전략 전반의 주요 마일스톤.",
+    ach1Tag: "퀀트 금융", ach1Head: "알고리즘 백테스팅 엔진", ach1Text: "역사적 외환 및 주식 가격 움직임, 낙폭 한도, 위험 대비 수익 지표를 테스트하기 위한 자동화된 파이썬 스크립트 개발.",
+    ach2Tag: "학술 및 전략", ach2Head: "소비자 행동 및 브랜드 전략", ach2Text: "세종대학교에서 협력적 소비자 행동 마케팅 연구 및 전략적 브랜드 프레젠테이션 수행.",
+    ach3Tag: "리스크 및 실행", ach3Head: "규율 있는 자본 프레임워크", ach3Text: "일관된 실행을 위한 체계적인 포지션 사이징 규칙 및 다중 세션 시장 추적 워크플로 구축.",
+    projTitle: "프로젝트", projSub: "소프트웨어, AI 도구, 그리고 트레이딩 인프라.",
+    proj1Tag: "AI 및 웹 엔지니어링", proj1Head: "인터랙티브 퀀트 포트폴리오 & 타도 AI", proj1Text: "애니메이션 레드-블랙 웨이브 그래픽, 임베디드 트레이딩뷰 차트, 일반 AI 어시스턴트가 통합된 풀스택 다크모드 웹 플랫폼.",
+    proj2Tag: "파이썬 및 시장", proj2Head: "AI 외환 및 시장 연구 도구", proj2Text: "Pandas와 NumPy를 활용해 시장 변동성 체제를 감지하고 기술적 세팅을 평가하는 파이썬 데이터 분석 파이프라인.",
+    proj3Tag: "자동화", proj3Head: "시장 가격 알림 어시스턴트", proj3Text: "핵심 유동성 구간을 추적하고 활성 트레이딩 세션 동안 실시간 알림을 보내도록 설계된 자동화 모니터링 스크립트.",
+    acadTitle: "학업 과정", acadSub: "세종대학교 핵심 교과 과정 및 기술 훈련.",
+    acad1Tag: "컴퓨터 과학 및 코딩", acad1Head: "고급 파이썬 프로그래밍", acad1Text: "사용자 정의 함수, 자료 구조, 집합 연산, 리스트 내포, 알고리즘 문제 해결을 다루는 실습형 소프트웨어 개발.",
+    acad2Tag: "경영 및 금융", acad2Head: "관리회계 및 기업재무", acad2Text: "현대 기업을 위한 재무제표 분석, 원가 행태 모델링, 자본 예산 편성 및 밸류에이션 프레임워크.",
+    acad3Tag: "시장 전략", acad3Head: "소비자 행동 및 마케팅", acad3Text: "글로벌 시장에서의 바이어 심리, 시장 세분화, 경쟁 포지셔닝에 대한 분석적 연구.",
+    sejongTitle: "세종대학교", sejongSub: "대한민국 서울에서의 대학 생활, 캠퍼스 환경 및 경영학 연구.",
+    sejong1Tag: "기관 • 서울, 한국", sejong1Head: "경영대학", sejong1Text: "서울 광진구에 위치한 세종대학교는 엄격한 비즈니스 경제학과 퀀트 및 기술 혁신을 결합한 국제적인 학술 허브를 제공합니다.",
+    sejong2Tag: "연구 및 협업", sejong2Head: "글로벌 학생 커뮤니티", sejong2Text: "문화 간 사례 연구, 금융 시장 프레젠테이션, 프로그래밍 프로젝트에서 동료 경영 및 공학도들과 협업.",
+    tvTitle: "트레이딩뷰 실시간 터미널", tvSub: "인터랙티브 차트 내에서 직접 시장을 전환하거나 티커를 검색하여 가격 변동을 분석하세요.",
+    contactTitle: "연락처", contactSub: "트레이딩 연구, 협업 또는 소프트웨어 프로젝트 관련 문의.",
+    contact1Tag: "다이렉트 이메일", contact1Head: "문의 및 협업", contact2Tag: "네트워크", contact2Head: "소셜 및 코드 저장소",
+    aiStatus: "온라인 • 스마트 어시스턴트", aiWelcome: "안녕하세요! 저는 <strong>타도 AI</strong>입니다. <strong>나이모프 울루그벡</strong>의 세종대학교 학업, 트레이딩 전략에 대해 무엇이든 물어보세요!", aiPlaceholder: "타도 AI에게 무엇이든 물어보세요..."
+  },
+  uz: {
+    navAbout: "Men haqimda", navAch: "Yutuqlar", navProj: "Loyihalar", navAcad: "O'qish davri", navSejong: "Sejong Universiteti", navTV: "TradingView", navContact: "Aloqa",
+    heroTitle: "Nayimov <span>Ulug'bek</span>", heroDesc: "Seulda biznes va moliya talabasi, miqdoriy treyder va global bozorlarni dasturiy ta'minot bilan bog'lovchi Python dasturchisi.",
+    heroBtn1: "Jonli grafiklarni ochish", heroBtn2: "Tadow AI dan so'rash",
+    aboutTitle: "Men haqimda", aboutSub: "Mening kelib chiqishim, maqsadlarim va moliya hamda texnologiya uyg'unligi.", aboutTag: "Profil haqida", aboutHead: "Moliyaga yo'naltirilgan. Texnologiyaga asoslangan.", aboutText: "Men Nayimov Ulug'bek, Sejong universitetining biznes va moliya yo'nalishi talabasiman, aslida O'zbekistondanman. Faoliyatim moliyaviy bozorlar, kvant treyding va dasturlash kesishgan nuqtada joylashgan. Bozor tuzilmasini o'rganaman, tavakkalchilikni boshqaraman va Python vositalarini yarataman.",
+    achTitle: "Yutuqlar", achSub: "Kvant tadqiqotlari, fan va strategiya bo'yicha asosiy natijalar.",
+    ach1Tag: "Kvant moliya", ach1Head: "Algoritmik Backtesting Dvigateli", ach1Text: "Tarixiy valyuta va aksiya narxlari harakatini sinovdan o'tkazish uchun avtomatlashtirilgan Python skriptlari ishlab chiqildi.",
+    ach2Tag: "Akademik va strategiya", ach2Head: "Iste'molchi xulq-atvori va brend strategiyasi", ach2Text: "Sejong universitetida iste'molchi xulq-atvori bo'yicha marketing tadqiqotlari va taqdimotlar qilindi.",
+    ach3Tag: "Risk va ijro", ach3Head: "Intizomli kapital tizimi", ach3Text: "Barqaror ijro uchun pozitsiya hajmini aniqlash qoidalari va bozor monitoringi ish jarayoni yaratildi.",
+    projTitle: "Loyihalar", projSub: "Dasturiy ta'minot, AI vositalari va treyding infratuzilmasi.",
+    proj1Tag: "AI va Veb muhandislik", proj1Head: "Kvant Portfolio va Tadow AI", proj1Text: "Qizil-qora animatsiyali veb-platforma, TradingView grafiklari va umumiy AI yordamchisi bilan jihozlangan.",
+    proj2Tag: "Python va bozorlar", proj2Head: "AI Forex va Bozor Tadqiqot Vositasi", proj2Text: "Pandas va NumPy yordamida bozor o'zgaruvchanligini aniqlash uchun Python tahlil quvuri.",
+    proj3Tag: "Avtomatlashtirish", proj3Head: "Bozor Narxlari Eslatma Yordamchisi", proj3Text: "Muhim likvidlik darajalarini kuzatish va real vaqtda bildirishnomalar yuborish uchun skript.",
+    acadTitle: "O'qish davri", acadSub: "Sejong universitetidagi asosiy fanlar va texnik tayyorgarlik.",
+    acad1Tag: "Kompyuter fanlari", acad1Head: "Ilg'or Python Dasturlash", acad1Text: "Funksiyalar, ma'lumotlar tuzilmalari, to'plam amallari va algoritmik masalalarni hal qilish.",
+    acad2Tag: "Biznes va moliya", acad2Head: "Boshqaruv Buxgalteriyasi va Korporativ Moliya", acad2Text: "Moliyaviy hisobotlarni tahlil qilish, kapitalni rejalashtirish va baholash tizimlari.",
+    acad3Tag: "Bozor strategiyasi", acad3Head: "Iste'molchi xulq-atvori va Marketing", acad3Text: "Xaridor psixologiyasi, bozor segmentatsiyasi va raqobatbardoshlikni tahlil qilish.",
+    sejongTitle: "Sejong Universiteti", sejongSub: "Seul, Janubiy Koreyadagi akademik hayot va biznes tadqiqotlari.",
+    sejong1Tag: "Muassasa • Seul, Koreya", sejong1Head: "Biznes Boshqaruvi Fakulteti", sejong1Text: "Seulning Gvangjin-gu shahrida joylashgan Sejong universiteti biznes iqtisodiyoti va texnologik innovatsiyalarni birlashtiradi.",
+    sejong2Tag: "Tadqiqot va hamkorlik", sejong2Head: "Global Talabalar Hamjamiyati", sejong2Text: "Xalqaro talabalar bilan keys-stadilar, moliya bozorlari taqdimotlari va dasturlash loyihalari ustida ishlash.",
+    tvTitle: "TradingView Jonli Terminali", tvSub: "Grafik ichida istalgan bozorni tanlang va narxlar harakatini tahlil qiling.",
+    contactTitle: "Aloqa", contactSub: "Treyding tadqiqotlari, hamkorlik yoki dasturiy loyihalar uchun bog'laning.",
+    contact1Tag: "To'g'ridan-to'g'ri elektron pochta", contact1Head: "Savollar va Hamkorlik", contact2Tag: "Tarmoqlar", contact2Head: "Ijtimoiy tarmoqlar va Kodlar",
+    aiStatus: "Onlayn • Aqlli Yordamchi", aiWelcome: "Salom! Men <strong>Tadow AI</strong>man. <strong>Nayimov Ulug'bek</strong>ning o'qishi va treyding strategiyalari haqida so'rang!", aiPlaceholder: "Tadow AI dan so'rang..."
+  },
+  ru: {
+    navAbout: "О себе", navAch: "Достижения", navProj: "Проекты", navAcad: "Учеба", navSejong: "Университет Седжон", navTV: "TradingView", navContact: "Контакты",
+    heroTitle: "Наимоф <span>Улугбек</span>", heroDesc: "Студент Сеульского университета по направлению бизнеса и финансов, квантитативный трейдер и Python-разработчик.",
+    heroBtn1: "Открыть графики", heroBtn2: "Спросить Tadow AI",
+    aboutTitle: "О себе", aboutSub: "Биография, мышление и пересечение финансов и ПО.", aboutTag: "Обзор профиля", aboutHead: "Фокус на финансах. Движение технологиями.", aboutText: "Я Наимоф Улугбек, студент Седжонского университета в Сеуле, родом из Узбекистана. Моя работа находится на стыке глобальных рынков, квант-трейдинга и разработки. Я изучаю структуру рынков, практикую риск-менеджмент и создаю инструменты на Python.",
+    achTitle: "Достижения", achSub: "Ключевые вехи в квант-исследованиях, учебе и стратегии.",
+    ach1Tag: "Квант-финансы", ach1Head: "Алгоритмический бэктестинг", ach1Text: "Разработаны Python-скрипты для тестирования исторических данных форекс и акций, лимитов просадки и метрик риска.",
+    ach2Tag: "Академия и стратегия", ach2Head: "Поведение потребителей и брендинг", ach2Text: "Успешные исследования маркетинговых стратегий потребительского поведения в Университете Седжон.",
+    ach3Tag: "Риск и исполнение", ach3Head: "Дисциплинированный капитал", ach3Text: "Созданы структурированные правила определения размера позиций для стабильной торговли.",
+    projTitle: "Проекты", projSub: "ПО, ИИ-инструменты и торговая инфраструктура.",
+    proj1Tag: "ИИ и веб-инжиниринг", proj1Head: "Интерактивный портфель и Tadow AI", proj1Text: "Полнофункциональная веб-платформа с анимированной красно-черной графикой, графиками TradingView и ИИ-помощником.",
+    proj2Tag: "Python и рынки", proj2Head: "ИИ-инструмент анализа Forex", proj2Text: "Пайплайн анализа данных на Pandas и NumPy для выявления волатильности рынков.",
+    proj3Tag: "Автоматизация", proj3Head: "Ассистент ценовых оповещений", proj3Text: "Скрипт мониторинга ключевых уровней ликвидности и отправки уведомлений в реальном времени.",
+    acadTitle: "Учебный процесс", acadSub: "Основные дисциплины и техподготовка в Университете Седжон.",
+    acad1Tag: "Компьютерные науки", acad1Head: "Продвинутый Python", acad1Text: "Разработка ПО: функции, структуры данных, операции с множествами и алгоритмическое решение задач.",
+    acad2Tag: "Бизнес и финансы", acad2Head: "Управленческий учет и финансы", acad2Text: "Анализ финансовой отчетности, бюджетирование капитала и оценка стоимости компаний.",
+    acad3Tag: "Рыночная стратегия", acad3Head: "Поведение потребителей и маркетинг", acad3Text: "Аналитическое исследование психологии покупателей и позиционирования на мировых рынках.",
+    sejongTitle: "Университет Седжон", sejongSub: "Академическая жизнь и бизнес-исследования в Сеуле, Южная Корея.",
+    sejong1Tag: "Институт • Сеул, Корея", sejong1Head: "Факультет бизнес-администрирования", sejong1Text: "Расположенный в Кванджин-гу, Сеул, университет Седжон объединяет строгую бизнес-экономику и технологические инновации.",
+    sejong2Tag: "Исследования и коллаборация", sejong2Head: "Глобальное студенческое сообщество", sejong2Text: "Совместные кейс-стади, презентации финансовых рынков и IT-проекты со студентами со всего мира.",
+    tvTitle: "Терминал TradingView", tvSub: "Переключайте рынки и ищите любые тикеры прямо в интерактивном графике.",
+    contactTitle: "Контакты", contactSub: "Связь для исследований, коллабораций и IT-проектов.",
+    contact1Tag: "Прямая почта", contact1Head: "Вопросы и сотрудничество", contact2Tag: "Сети", contact2Head: "Соцсети и репозитории",
+    aiStatus: "Онлайн • Умный ассистент", aiWelcome: "Привет! Я <strong>Tadow AI</strong>. Спросите меня о <strong>Наимофе Улугбеке</strong>, учебе в Седжоне или трейдинге!", aiPlaceholder: "Спросите Tadow AI о чем угодно..."
+  },
+  es: {
+    navAbout: "Sobre mí", navAch: "Logros", navProj: "Proyectos", navAcad: "Periodo Académico", navSejong: "Universidad Sejong", navTV: "TradingView", navContact: "Contacto",
+    heroTitle: "Nayimov <span>Ulugbek</span>", heroDesc: "Estudiante de negocios y finanzas en Seúl, trader cuantitativo y desarrollador Python conectando mercados globales con software avanzado.",
+    heroBtn1: "Abrir Gráficos", heroBtn2: "Preguntar a Tadow AI",
+    aboutTitle: "Sobre mí", aboutSub: "Antecedentes, mentalidad y la intersección de finanzas y software.", aboutTag: "Resumen de Perfil", aboutHead: "Enfocado en Finanzas. Impulsado por Tecnología.", aboutText: "Soy Nayimov Ulugbek, estudiante de negocios y finanzas en la Universidad Sejong en Seúl, originario de Uzbekistán. Mi trabajo se encuentra donde los mercados financieros globales, el trading cuantitativo y la ingeniería de software se intersectan. Estudio la estructura del mercado, practico la gestión de riesgos y desarrollo herramientas en Python.",
+    achTitle: "Logros", achSub: "Hitos clave en investigación cuantitativa, académica y estrategia.",
+    ach1Tag: "Finanzas Cuantitativas", ach1Head: "Motor Algorítmico de Backtesting", ach1Text: "Diseño de scripts automatizados en Python para probar la acción histórica de precios de forex y acciones.",
+    ach2Tag: "Academia y Estrategia", ach2Head: "Comportamiento del Consumidor", ach2Text: "Investigación colaborativa de marketing y presentaciones de marcas estratégicas en la Universidad Sejong.",
+    ach3Tag: "Riesgo y Ejecución", ach3Head: "Marco de Capital Disciplinado", ach3Text: "Desarrollo de reglas estructuradas de dimensionamiento de posiciones para una ejecución consistente.",
+    projTitle: "Proyectos", projSub: "Software, herramientas de IA e infraestructura de trading.",
+    proj1Tag: "IA e Ingeniería Web", proj1Head: "Portafolio Quant Interactivo y Tadow AI", proj1Text: "Plataforma web full-stack en modo oscuro con gráficos de ondas rojo y negro, TradingView y asistente de IA integrado.",
+    proj2Tag: "Python y Mercados", proj2Head: "Herramienta de Investigación Forex con IA", proj2Text: "Pipeline de análisis de datos en Python utilizando Pandas y NumPy para detectar regímenes de volatilidad.",
+    proj3Tag: "Automatización", proj3Head: "Asistente de Alertas de Precios", proj3Text: "Script de monitoreo automatizado diseñado para rastrear niveles clave de liquidez y enviar notificaciones en tiempo real.",
+    acadTitle: "Periodo Académico", acadSub: "Cursos principales, formación técnica y cronograma en la Universidad Sejong.",
+    acad1Tag: "Ciencias de la Computación", acad1Head: "Programación Avanzada en Python", acad1Text: "Desarrollo de software práctico cubriendo funciones, estructuras de datos y resolución algorítmica de problemas.",
+    acad2Tag: "Negocios y Finanzas", acad2Head: "Contabilidad Gerencial y Finanzas Corporativas", acad2Text: "Análisis de estados financieros, modelado de costos, presupuestación de capital y valoración para empresas modernas.",
+    acad3Tag: "Estrategia de Mercado", acad3Head: "Comportamiento del Consumidor y Marketing", acad3Text: "Investigación analítica sobre psicología del comprador, segmentación y posicionamiento competitivo global.",
+    sejongTitle: "Universidad Sejong", sejongSub: "Vida académica, entorno de campus y estudios de negocios en Seúl, Corea del Sur.",
+    sejong1Tag: "Institución • Seúl, Corea", sejong1Head: "Facultad de Administración de Empresas", sejong1Text: "Ubicada en Gwangjin-gu, Seúl, la Universidad Sejong ofrece un centro académico internacional que combina economía y tecnología.",
+    sejong2Tag: "Investigación y Colaboración", sejong2Head: "Comunidad Estudiantil Global", sejong2Text: "Colaboración con estudiantes de negocios e ingeniería en casos de estudio transculturales y proyectos de programación.",
+    tvTitle: "Terminal TradingView", tvSub: "Cambie de mercado o busque cualquier ticker directamente dentro del gráfico interactivo.",
+    contactTitle: "Contacto", contactSub: "Conéctese para investigación de trading, colaboraciones o proyectos de software.",
+    contact1Tag: "Correo Directo", contact1Head: "Consultas y Colaboración", contact2Tag: "Redes", contact2Head: "Redes Sociales y Repositorios",
+    aiStatus: "En línea • Asistente Inteligente", aiWelcome: "¡Hola! Soy <strong>Tadow AI</strong>. Pregúntame cualquier cosa sobre <strong>Nayimov Ulugbek</strong>, sus estudios en Sejong o estrategias de trading.", aiPlaceholder: "Pregúntale a Tadow AI lo que sea..."
+  },
+  de: {
+    navAbout: "Über mich", navAch: "Erfolge", navProj: "Projekte", navAcad: "Studienzeit", navSejong: "Sejong Universität", navTV: "TradingView", navContact: "Kontakt",
+    heroTitle: "Nayimov <span>Ulugbek</span>", heroDesc: "Wirtschafts- und Finanzstudent in Seoul, quantitativer Trader und Python-Entwickler, der globale Märkte mit Software verbindet.",
+    heroBtn1: "Live-Charts öffnen", heroBtn2: "Tadow AI fragen",
+    aboutTitle: "Über mich", aboutSub: "Hintergrund, Denkweise und die Schnittstelle von Finanzen & Software.", aboutTag: "Profilübersicht", aboutHead: "Finanzfokussiert. Technologiegetrieben.", aboutText: "Ich bin Nayimov Ulugbek, Wirtschafts- und Finanzstudent an der Sejong-Universität in Seoul, ursprünglich aus Usbekistan. Meine Arbeit verbindet globale Finanzmärkte, quantitatives Trading und Softwareentwicklung. Ich studiere Marktstrukturen, praktiziere Risikomanagement und entwickle Python-Tools.",
+    achTitle: "Erfolge", achSub: "Meilensteine in quantitativer Forschung, Akademik und Strategie.",
+    ach1Tag: "Quantitative Finanzen", ach1Head: "Algorithmatische Backtesting-Engine", ach1Text: "Entwicklung automatisierter Python-Skripte zum Testen historischer Forex- und Aktienkursbewegungen.",
+    ach2Tag: "Akademik & Strategie", ach2Head: "Konsumverhalten & Markenstrategie", ach2Text: "Erfolgreiche Marketingforschungs- und Markenpräsentationen an der Sejong-Universität.",
+    ach3Tag: "Risiko & Ausführung", ach3Head: "Diszipliniertes Kapitalframework", ach3Text: "Entwicklung strukturierter Positionsgrößenregeln für konsistente Handelsklauseln.",
+    projTitle: "Projekte", projSub: "Software, KI-Tools und Trading-Infrastruktur.",
+    proj1Tag: "KI & Web-Engineering", proj1Head: "Interaktives Quant-Portfolio & Tadow AI", proj1Text: "Full-Stack-Dark-Mode-Webplattform mit animierten rot-schwarzen Wave-Grafiken, TradingView-Charts und integriertem KI-Assistenten.",
+    proj2Tag: "Python & Märkte", proj2Head: "KI Forex & Markt-Research-Tool", proj2Text: "Python-Datenanalyse-Pipeline mit Pandas und NumPy zur Erkennung von Marktvolatilitäten.",
+    proj3Tag: "Automatisierung", proj3Head: "Marktpreis-Alarm-Assistent", proj3Text: "Automatisiertes Überwachungsskript zur Verfolgung wichtiger Liquiditätsniveaus in Echtzeit.",
+    acadTitle: "Studienzeit", acadSub: "Kernfächer und technische Ausbildung an der Sejong-Universität.",
+    acad1Tag: "Informatik & Programmierung", acad1Head: "Fortgeschrittene Python-Programmierung", acad1Text: "Praktische Softwareentwicklung mit benutzerdefinierten Funktionen, Datenstrukturen und algorithmischer Problemlösung.",
+    acad2Tag: "Wirtschaft & Finanzen", acad2Head: "Managerial Accounting & Corporate Finance", acad2Text: "Finanzanalyse, Kostenverhaltensmodellierung, Kapitalbudgetierung und Unternehmensbewertung.",
+    acad3Tag: "Marktstrategie", acad3Head: "Konsumverhalten & Marketing", acad3Text: "Analytische Forschung zur Käuferpsychologie und wettbewerbsfähigen Positionierung auf globalen Märkten.",
+    sejongTitle: "Sejong Universität", sejongSub: "Akademisches Leben, Campusumgebung und Wirtschaftswissenschaften in Seoul, Südkorea.",
+    sejong1Tag: "Institution • Seoul, Korea", sejong1Head: "Fakultät für Betriebswirtschaft", sejong1Text: "Die Sejong-Universität im Stadtteil Gwangjin-gu, Seoul, bietet ein internationales akademisches Zentrum.",
+    sejong2Tag: "Forschung & Kollaboration", sejong2Head: "Globale Studentengemeinschaft", sejong2Text: "Zusammenarbeit mit Wirtschafts- und Ingenieurstudenten an interkulturellen Fallstudien und IT-Projekten.",
+    tvTitle: "TradingView Live Terminal", tvSub: "Märkte wechseln oder beliebige Ticker direkt im interaktiven Chart analysieren.",
+    contactTitle: "Kontakt", contactSub: "Kontaktieren Sie mich für Trading-Forschung, Kollaborationen oder Softwareprojekte.",
+    contact1Tag: "Direkte E-Mail", contact1Head: "Anfragen & Kollaboration", contact2Tag: "Netzwerke", contact2Head: "Soziale Medien & Repositories",
+    aiStatus: "Online • Smart Assistant", aiWelcome: "Hallo! Ich bin <strong>Tadow AI</strong>. Fragen Sie mich alles über <strong>Nayimov Ulugbek</strong>, sein Sejong-Studium oder Trading-Strategien!", aiPlaceholder: "Fragen Sie Tadow AI alles..."
+  }
+};
+
+/* LANGUAGE SWITCHING HANDLER */
+const langSelect = document.getElementById("langSelect");
+langSelect.addEventListener("change", (e) => {
+  const lang = e.target.value;
+  const dict = translations[lang] || translations.en;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (dict[key]) el.innerHTML = dict[key];
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (dict[key]) el.placeholder = dict[key];
+  });
+});
+
+/* ANIMATED DUAL CANVAS & SINE WAVES */
 const canvas = document.getElementById("waveCanvas");
 const ctx = canvas.getContext("2d");
 let width, height, tick = 0;
@@ -807,19 +1127,19 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-function drawWaves() {
+function drawAdvancedWaves() {
   ctx.clearRect(0, 0, width, height);
   const waves = [
-    { amp: 45, freq: 0.004, speed: 0.018, color: "rgba(200, 16, 46, 0.16)", yOffset: height * 0.35 },
-    { amp: 65, freq: 0.003, speed: -0.012, color: "rgba(130, 8, 26, 0.18)", yOffset: height * 0.55 },
-    { amp: 35, freq: 0.006, speed: 0.025, color: "rgba(244, 241, 236, 0.04)", yOffset: height * 0.72 }
+    { amp: 55, freq: 0.0035, speed: 0.015, color: "rgba(200, 16, 46, 0.18)", yOffset: height * 0.38 },
+    { amp: 75, freq: 0.0025, speed: -0.01, color: "rgba(120, 5, 20, 0.22)", yOffset: height * 0.58 },
+    { amp: 40, freq: 0.005, speed: 0.02, color: "rgba(244, 241, 236, 0.05)", yOffset: height * 0.76 }
   ];
 
   waves.forEach(w => {
     ctx.beginPath();
     ctx.moveTo(0, height);
-    for (let x = 0; x <= width; x += 8) {
-      const y = w.yOffset + Math.sin(x * w.freq + tick * w.speed) * w.amp + Math.cos(x * w.freq * 0.5 - tick * w.speed) * (w.amp * 0.5);
+    for (let x = 0; x <= width; x += 6) {
+      const y = w.yOffset + Math.sin(x * w.freq + tick * w.speed) * w.amp + Math.cos(x * w.freq * 0.4 - tick * w.speed) * (w.amp * 0.4);
       ctx.lineTo(x, y);
     }
     ctx.lineTo(width, height);
@@ -829,19 +1149,19 @@ function drawWaves() {
   });
 
   tick++;
-  requestAnimationFrame(drawWaves);
+  requestAnimationFrame(drawAdvancedWaves);
 }
-drawWaves();
+drawAdvancedWaves();
 
-/* SCROLL REVEAL ANIMATION */
+/* SCROLL REVEAL OBSERVER */
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add("visible");
   });
-}, { threshold: 0.12 });
+}, { threshold: 0.1 });
 document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
 
-/* DYNAMIC TRADINGVIEW CHART LOADER */
+/* DYNAMIC TRADINGVIEW ADVANCED CHART */
 function loadTradingViewChart(symbol) {
   const mount = document.getElementById("tvWidgetMount");
   mount.innerHTML = "";
@@ -874,7 +1194,7 @@ document.querySelectorAll(".tv-symbol-btn").forEach(btn => {
   });
 });
 
-/* TADOW AI ASSISTANT (GENERAL AI + PORTFOLIO CONTEXT) */
+/* TADOW AI SMART GENERAL ASSISTANT */
 const tadowToggle = document.getElementById("tadowToggle");
 const tadowClose = document.getElementById("tadowClose");
 const tadowWindow = document.getElementById("tadowWindow");
@@ -894,14 +1214,14 @@ document.querySelectorAll(".tadow-chip").forEach(chip => {
   });
 });
 
-const systemPrompt = `You are Tadow AI, a smart, helpful general-purpose AI assistant embedded in Nayimov Ulugbek's official portfolio website.
-You can answer ANY general question (science, coding, trading, finance, math, everyday topics) as well as questions about Nayimov Ulugbek:
+const systemPrompt = `You are Tadow AI, an advanced, brilliant, and precise smart assistant embedded in Nayimov Ulugbek's elite portfolio website.
+You can answer ANY question accurately (coding, finance, trading, science, general knowledge, math) and possess complete context about Nayimov Ulugbek:
 - Name: Nayimov Ulugbek, originally from Uzbekistan, studying Business Administration & Finance at Sejong University in Seoul, South Korea.
 - Focus: Quantitative trading, financial markets, risk management, and Python programming.
 - Projects: Interactive Quant Portfolio with TradingView charts & Tadow AI, AI Forex/Market Research Tool in Python, Automated Market Price Alert Assistant.
 - Academic Period: Advanced Python Programming, Managerial Accounting, Corporate Finance, Consumer Behavior Marketing at Sejong University.
 - Contact: Personal email Mr.Nayimov@gmail.com, University email unayimov@sju.ac.kr, GitHub github.com/Nayimov04.
-Keep responses clear, helpful, and concise.`;
+Provide precise, intelligent, and captivating answers.`;
 
 async function sendTadowMessage() {
   const text = tadowInput.value.trim();
@@ -916,7 +1236,7 @@ async function sendTadowMessage() {
 
   const typingDiv = document.createElement("div");
   typingDiv.className = "msg ai";
-  typingDiv.innerHTML = '<i class="fa-solid fa-ellipsis fa-fade"></i> Tadow AI is thinking...';
+  typingDiv.innerHTML = '<i class="fa-solid fa-ellipsis fa-fade"></i> Tadow AI is calculating precise response...';
   tadowMessages.appendChild(typingDiv);
   tadowMessages.scrollTop = tadowMessages.scrollHeight;
 
@@ -932,18 +1252,11 @@ async function sendTadowMessage() {
         model: "openai"
       })
     });
-    if (!response.ok) throw new Error("Network response error");
+    if (!response.ok) throw new Error("Network error");
     const reply = await response.text();
     typingDiv.textContent = reply;
   } catch (err) {
-    const lower = text.toLowerCase();
-    if (lower.includes("sejong")) {
-      typingDiv.textContent = "Nayimov Ulugbek studies Business Administration at Sejong University in Seoul, South Korea, combining corporate finance with quantitative programming.";
-    } else if (lower.includes("contact") || lower.includes("email")) {
-      typingDiv.textContent = "You can reach Ulugbek at Mr.Nayimov@gmail.com or unayimov@sju.ac.kr.";
-    } else {
-      typingDiv.textContent = "I'm Tadow AI! Ulugbek is a Sejong University student, quantitative trader, and Python developer. You can explore his live TradingView charts or projects right on this page.";
-    }
+    typingDiv.textContent = "I am Tadow AI! Ulugbek is a Sejong University student, quant trader, and Python developer. Feel free to explore his live charts or ask any technical question!";
   }
   tadowMessages.scrollTop = tadowMessages.scrollHeight;
 }
