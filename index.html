@@ -1,0 +1,1625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+
+<title>Nayimov Ulugbek | Sejong University Student, Trader & Developer</title>
+<meta name="description" content="The official website of Nayimov Ulugbek — Sejong University business student, quantitative trader, and technology developer.">
+<meta name="author" content="Nayimov Ulugbek">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://nayimovulugbek.netlify.app/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nayimov Ulugbek | Trader & Sejong University Student">
+<meta property="og:description" content="Finance-focused. Technology-driven. Quantitative Trading & Business at Sejong University.">
+<meta property="og:url" content="https://nayimovulugbek.netlify.app/">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23090909'/%3E%3Cpath d='M16 48V16l32 32V16' fill='none' stroke='%23B51224' stroke-width='6'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nayimov Ulugbek",
+  "url": "https://nayimovulugbek.netlify.app/",
+  "jobTitle": "Quantitative Trader & Business Student",
+  "description": "Business and finance student at Sejong University exploring financial markets, quantitative trading, and technology.",
+  "alumniOf": {
+    "@type": "CollegeOrUniversity",
+    "name": "Sejong University"
+  },
+  "sameAs": [
+    "https://github.com/Nayimov04",
+    "https://www.linkedin.com/in/ulugbek-nayimov-4b9783261/",
+    "https://www.instagram.com/unayimov7/"
+  ]
+}
+</script>
+
+<style>
+:root {
+  --bg: #090909;
+  --bg2: #121212;
+  --bg-card: #18181b;
+  --red: #B51224;
+  --ivory: #F4F1EC;
+  --mute: #A9A49C;
+  --line: rgba(244,241,236,.14);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Manrope', Arial, sans-serif;
+  --pad: clamp(1.25rem,5vw,4rem);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 8rem;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ivory);
+  font: 400 1rem/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+button, select {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ivory);
+  outline-offset: 4px;
+}
+
+/* PRELOADER */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loader-content {
+  text-align: center;
+}
+
+#loader-percent {
+  font: 700 clamp(4rem, 12vw, 8rem)/1 var(--serif);
+  color: var(--red);
+  letter-spacing: -0.02em;
+}
+
+.loader-subtitle {
+  font-size: 0.85rem;
+  color: var(--mute);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  z-index: 100;
+  background: var(--red);
+  color: var(--ivory);
+  padding: .7rem 1rem;
+}
+
+.skip:focus {
+  left: 0;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+/* TOP CLOCK */
+header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  background: rgba(9,9,9,.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar {
+  min-height: 3.3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.clock-area {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  flex-wrap: wrap;
+}
+
+.clock-label {
+  color: var(--mute);
+  font-size: .68rem;
+  letter-spacing: .18em;
+  font-weight: 700;
+}
+
+.clock {
+  display: flex;
+  align-items: center;
+  gap: .08rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .04em;
+}
+
+.clock-hours,
+.clock-seconds {
+  color: var(--red);
+}
+
+.clock-minutes {
+  color: var(--ivory);
+}
+
+.clock-separator {
+  color: var(--mute);
+  padding: 0 .08rem;
+}
+
+.clock-zone {
+  font-size: .68rem;
+  color: var(--mute);
+  letter-spacing: .1em;
+}
+
+.language-control {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.language-control label {
+  color: var(--mute);
+  font-size: .75rem;
+}
+
+.language-control select {
+  background: var(--bg2);
+  color: var(--ivory);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: .4rem .6rem;
+  cursor: pointer;
+  max-width: 145px;
+  font-size: .8rem;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 4rem;
+}
+
+.brand {
+  font: 600 1.4rem/1 var(--serif);
+  text-decoration: none;
+  letter-spacing: .02em;
+}
+
+nav ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  font-size: .88rem;
+  color: var(--mute);
+  padding: .4rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+
+nav a:hover {
+  color: var(--ivory);
+  border-color: var(--red);
+}
+
+.menu {
+  display: none;
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--ivory);
+  padding: .5rem .9rem;
+  cursor: pointer;
+}
+
+/* HERO */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 10rem 0 4rem;
+}
+
+.hero .wrap {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: clamp(2rem,6vw,5rem);
+  align-items: center;
+}
+
+h1 {
+  font: 600 clamp(3.2rem,8.5vw,6.8rem)/.92 var(--serif);
+  margin: 0;
+  letter-spacing: -.01em;
+}
+
+h1 span {
+  display: block;
+  overflow: hidden;
+}
+
+h1 span i {
+  display: block;
+  font-style: normal;
+  animation: rise 1s cubic-bezier(.2,.7,.2,1) both;
+}
+
+h1 span:nth-child(2) i {
+  animation-delay: .18s;
+}
+
+.rule {
+  height: 2px;
+  width: 6rem;
+  background: var(--red);
+  margin: 2rem 0;
+  transform-origin: left;
+  animation: draw .9s .7s both;
+}
+
+.tag {
+  font: 500 clamp(1.15rem,2.4vw,1.4rem)/1.5 var(--serif);
+  color: var(--ivory);
+  margin: 0 0 2rem;
+  max-width: 32ch;
+  animation: fade 1s .9s both;
+}
+
+.cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  animation: fade 1s 1.1s both;
+}
+
+.btn {
+  display: inline-block;
+  padding: .85rem 1.6rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: .9rem;
+  border: 1px solid var(--red);
+  transition: background .2s,color .2s;
+}
+
+.btn.solid {
+  background: var(--red);
+  color: var(--ivory);
+}
+
+.btn.solid:hover {
+  background: #cf1a2f;
+}
+
+.btn.ghost:hover {
+  background: var(--red);
+}
+
+/* 3D TILT STUDENT/TRADER ID BADGE */
+.id-badge-container {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 340px;
+  justify-self: end;
+}
+
+.id-badge {
+  background: linear-gradient(135deg, #18181b 0%, #0d0d0f 100%);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out, border-color 0.3s;
+  position: relative;
+}
+
+.id-badge:hover {
+  border-color: var(--red);
+}
+
+.badge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.badge-uni {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  color: var(--red);
+  text-transform: uppercase;
+}
+
+.badge-status {
+  font-size: 0.65rem;
+  background: rgba(181, 18, 36, 0.15);
+  color: var(--ivory);
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--red);
+  border-radius: 4px;
+}
+
+.badge-body {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.badge-photo {
+  width: 90px;
+  height: 110px;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+.badge-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.badge-info h3 {
+  font: 600 1.15rem/1.2 var(--serif);
+  margin: 0 0 0.2rem;
+}
+
+.badge-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--mute);
+}
+
+.badge-footer {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--mute);
+}
+
+/* MUSIC PLAYER WIDGET */
+.music-widget {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  padding: 1rem 1.25rem;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 8px;
+  max-width: 420px;
+}
+
+.music-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(181,18,36,0.15);
+  border: 1px solid var(--red);
+  display: grid;
+  place-items: center;
+  color: var(--red);
+  border-radius: 50%;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.music-details {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.music-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.music-artist {
+  font-size: 0.75rem;
+  color: var(--mute);
+  margin: 0;
+}
+
+.music-toggle {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--ivory);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s;
+}
+
+.music-toggle:hover {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+/* SECTIONS */
+@keyframes rise {
+  from { transform: translateY(105%); }
+  to { transform: none; }
+}
+
+@keyframes draw {
+  from { transform: scaleX(0); }
+  to { transform: none; }
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+section {
+  padding: clamp(4rem,10vw,7.5rem) 0;
+}
+
+h2 {
+  font: 600 clamp(2.1rem,5vw,3.4rem)/1.1 var(--serif);
+  margin: 0 0 1.5rem;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: clamp(1.5rem,5vw,4rem);
+}
+
+.split p {
+  margin: 0 0 1.2rem;
+  max-width: 62ch;
+}
+
+.muted {
+  color: var(--mute);
+}
+
+/* FOCUS AREAS */
+.rows {
+  border-top: 1px solid var(--line);
+  margin-top: 2.5rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  gap: clamp(1rem,5vw,4rem);
+  padding: 1.9rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.row h3 {
+  font: 600 1.75rem/1.2 var(--serif);
+  margin: 0;
+}
+
+.row p {
+  margin: 0;
+  color: var(--mute);
+  max-width: 58ch;
+}
+
+/* PORTFOLIO TABS */
+.tabs-nav {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1rem;
+}
+
+.tab-btn {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--mute);
+  padding: .6rem 1.2rem;
+  cursor: pointer;
+  font-size: .88rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.tab-btn.active, .tab-btn:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--ivory);
+}
+
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+  animation: fade 0.4s ease;
+}
+
+.proj {
+  grid-template-columns: .8fr 1.2fr auto;
+  align-items: start;
+}
+
+.status {
+  font-size: .8rem;
+  border: 1px solid var(--red);
+  padding: .2rem .8rem;
+  white-space: nowrap;
+  color: var(--ivory);
+}
+
+/* PHILOSOPHY */
+.ivory {
+  background: var(--ivory);
+  color: var(--bg);
+}
+
+.ivory h2 {
+  color: var(--bg);
+}
+
+.lines {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.lines li {
+  font: 500 clamp(1.4rem,3vw,2.1rem)/1.3 var(--serif);
+  padding-left: 1.25rem;
+  border-left: 3px solid var(--red);
+  max-width: 34ch;
+}
+
+.ivory .note {
+  color: #4a463f;
+  margin-top: 2rem;
+  max-width: 60ch;
+}
+
+/* CONTACT */
+.links {
+  list-style: none;
+  padding: 0;
+  margin: 2rem 0 0;
+}
+
+.links li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.links a {
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-underline-offset: 5px;
+  overflow-wrap: anywhere;
+}
+
+footer {
+  border-top: 1px solid var(--line);
+  padding: 2rem 0;
+  color: var(--mute);
+  font-size: .85rem;
+}
+
+footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+/* MOBILE */
+@media (max-width: 820px) {
+  .menu {
+    display: block;
+  }
+
+  nav {
+    position: absolute;
+    top: 7.3rem;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    display: none;
+  }
+
+  nav.open {
+    display: block;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: .5rem var(--pad) 1rem;
+  }
+
+  nav a {
+    display: block;
+    padding: .8rem 0;
+  }
+
+  .hero .wrap,
+  .split,
+  .row,
+  .proj {
+    grid-template-columns: 1fr;
+  }
+
+  .id-badge-container {
+    justify-self: start;
+    max-width: 300px;
+    order: -1;
+  }
+
+  .hero {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    min-height: 3.5rem;
+  }
+
+  .clock {
+    font-size: 1rem;
+  }
+
+  .clock-label, .language-control label {
+    display: none;
+  }
+
+  .language-control select {
+    max-width: 125px;
+    font-size: .75rem;
+  }
+
+  .bar {
+    min-height: 3.8rem;
+  }
+
+  nav {
+    top: 7.3rem;
+  }
+
+  .brand {
+    font-size: 1.2rem;
+  }
+
+  .links li {
+    flex-direction: column;
+    gap: .25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ANIMATED PRELOADER -->
+<div id="preloader">
+  <div class="loader-content">
+    <span id="loader-percent">0%</span>
+    <div class="loader-subtitle" id="loader-status">Initializing Quant Engine...</div>
+  </div>
+</div>
+
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+<header>
+  <div class="wrap topbar">
+    <div class="clock-area">
+      <span class="clock-label" data-i18n="clockLabel">LOCAL TIME</span>
+      <time class="clock" id="clock" aria-label="Seoul local time">
+        <span class="clock-hours" id="hours">00</span>
+        <span class="clock-separator">:</span>
+        <span class="clock-minutes" id="minutes">00</span>
+        <span class="clock-separator">:</span>
+        <span class="clock-seconds" id="seconds">00</span>
+      </time>
+      <span class="clock-zone">SEOUL · KST</span>
+    </div>
+
+    <div class="language-control">
+      <label for="language" data-i18n="languageLabel">Language</label>
+      <select id="language" aria-label="Select website language">
+        <option value="en">English</option>
+        <option value="ko">한국어</option>
+        <option value="uz">O‘zbekcha</option>
+        <option value="ru">Русский</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="wrap bar">
+    <a class="brand" href="#home">Nayimov Ulugbek</a>
+
+    <button class="menu" id="menu" aria-expanded="false"
+      aria-controls="nav" data-i18n="menu">Menu</button>
+
+    <nav id="nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="#about" data-i18n="navAbout">About</a></li>
+        <li><a href="#focus" data-i18n="navFocus">Focus</a></li>
+        <li><a href="#projects" data-i18n="navProjects">Projects</a></li>
+        <li><a href="#philosophy" data-i18n="navPhilosophy">Philosophy</a></li>
+        <li><a href="#contact" data-i18n="navContact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="wrap">
+      <div>
+        <h1>
+          <span><i>Nayimov</i></span>
+          <span><i>Ulugbek</i></span>
+        </h1>
+
+        <div class="rule" aria-hidden="true"></div>
+
+        <p class="tag" data-i18n="tagline">
+          Sejong University Student | Quantitative Trader & Technology Developer.
+        </p>
+
+        <div class="cta">
+          <a class="btn solid" href="#projects" data-i18n="viewProjects">View projects</a>
+          <a class="btn ghost" href="#contact" data-i18n="getInTouch">Get in touch</a>
+        </div>
+
+        <!-- TRADING SESSION MUSIC WIDGET -->
+        <div class="music-widget">
+          <div class="music-icon">
+            <i class="fa-solid fa-headphones" id="music-icon-state"></i>
+          </div>
+          <div class="music-details">
+            <p class="music-title">Market Session & Deep Focus Lo-Fi</p>
+            <p class="music-artist">Trading Playlist • Sejong Univ.</p>
+          </div>
+          <button class="music-toggle" id="music-toggle-btn" aria-label="Play/Pause background music">
+            <i class="fa-solid fa-play" id="play-icon"></i>
+          </button>
+          <audio id="bg-audio" loop preload="none">
+            <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+
+      <!-- 3D TILT STUDENT / TRADER ID BADGE -->
+      <div class="id-badge-container">
+        <div class="id-badge" id="tiltCard">
+          <div class="badge-header">
+            <span class="badge-uni">Sejong University</span>
+            <span class="badge-status">Active Trader</span>
+          </div>
+          <div class="badge-body">
+            <div class="badge-photo">
+              <img src="assets/images/profile.jpg" alt="Nayimov Ulugbek" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 90 110%22 fill=%23121212%3E%3Crect width=%2290%22 height=%22110%22/%3E%3Ctext x=%2245%22 y=%2260%22 fill=%23B51224%22 font-size=%2220%22 text-anchor=%22middle%22 font-family=%22serif%22%3ENU%3C/text%3E%3C/svg%3E'">
+            </div>
+            <div class="badge-info">
+              <h3>Ulugbek Nayimov</h3>
+              <p>Business & Finance</p>
+              <p class="muted" style="font-size: 0.75rem; margin-top: 4px;">Quant & Tech</p>
+            </div>
+          </div>
+          <div class="badge-footer">
+            <span>ID: SJU-2026-TR</span>
+            <span style="color: var(--red);">● Live</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap split">
+      <h2 data-i18n="aboutTitle">About</h2>
+
+      <div>
+        <p data-i18n="about1">
+          I am a business student at Sejong University in Seoul, originally from Uzbekistan. My work sits where business, financial markets and technology meet.
+        </p>
+
+        <p data-i18n="about2">
+          I study how markets move, practise trading with discipline, and build software to understand and automate what I learn. Alongside my studies I train regularly, because a clear mind and a steady routine are part of the work.
+        </p>
+
+        <p class="muted" data-i18n="about3">
+          This website is a record of that journey. It separates what I have completed, what I am building now, and what I plan to do next.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOCUS -->
+  <section id="focus" style="background:var(--bg2)">
+    <div class="wrap">
+      <h2 data-i18n="focusTitle">Areas of focus</h2>
+
+      <div class="rows">
+        <div class="row">
+          <h3 data-i18n="businessTitle">Business and entrepreneurship</h3>
+          <p data-i18n="businessText">
+            Studying how companies are built and run, and testing business ideas with small, honest experiments.
+          </p>
+        </div>
+
+        <div class="row">
+          <h3 data-i18n="financeTitle">Finance and investment</h3>
+          <p data-i18n="financeText">
+            Financial markets, trading research and analysis, with an emphasis on risk management and long-term consistency.
+          </p>
+        </div>
+
+        <div class="row">
+          <h3 data-i18n="technologyTitle">Technology and AI</h3>
+          <p data-i18n="technologyText">
+            Programming and automation in Python, and applying artificial intelligence to practical financial problems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS & PORTFOLIO TABS -->
+  <section id="projects">
+    <div class="wrap">
+      <h2 data-i18n="projectsTitle">Portfolio & Projects</h2>
+
+      <p class="muted" style="max-width:58ch" data-i18n="projectsIntro">
+        Explore my work across quantitative trading, Sejong University research, and software development.
+      </p>
+
+      <!-- TAB NAVIGATION -->
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="tab-projects" data-i18n="tabProjects">Projects</button>
+        <button class="tab-btn" data-tab="tab-trading" data-i18n="tabTrading">Trading & Quants</button>
+        <button class="tab-btn" data-tab="tab-sejong" data-i18n="tabSejong">Sejong University</button>
+        <button class="tab-btn" data-tab="tab-tech" data-i18n="tabTech">Tech Stack</button>
+      </div>
+
+      <!-- TAB 1: PROJECTS -->
+      <div class="tab-pane active" id="tab-projects">
+        <div class="rows" style="margin-top: 1rem;">
+          <div class="row proj">
+            <h3 data-i18n="websiteTitle">Official website</h3>
+            <p data-i18n="websiteText">
+              A professional digital identity built with HTML, CSS and JavaScript, hosted on Netlify.
+            </p>
+            <span class="status" data-i18n="inProgress">In progress</span>
+          </div>
+
+          <div class="row proj">
+            <h3 data-i18n="tradingTitle">AI trading research tool</h3>
+            <p data-i18n="tradingText">
+              A planned Python project to analyse forex market data and explore trading ideas with AI for learning and research.
+            </p>
+            <span class="status" data-i18n="planned">Planned</span>
+          </div>
+
+          <div class="row proj">
+            <h3 data-i18n="assistantTitle">Personal AI assistant</h3>
+            <p data-i18n="assistantText">
+              A planned assistant for market-price monitoring and personal notifications.
+            </p>
+            <span class="status" data-i18n="planned">Planned</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: TRADING & QUANTS -->
+      <div class="tab-pane" id="tab-trading">
+        <div class="rows" style="margin-top: 1rem;">
+          <div class="row proj">
+            <h3>Market Backtesting Scripts</h3>
+            <p>Python-based automated scripts for historical price analysis and risk metric calculation.</p>
+            <span class="status">Active Research</span>
+          </div>
+          <div class="row proj">
+            <h3>Risk Management Framework</h3>
+            <p>Position sizing and drawdown control algorithms built for disciplined capital allocation.</p>
+            <span class="status">Developing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: SEJONG UNIVERSITY -->
+      <div class="tab-pane" id="tab-sejong">
+        <div class="rows" style="margin-top: 1rem;">
+          <div class="row proj">
+            <h3>Business Administration Studies</h3>
+            <p>Core coursework in corporate finance, managerial economics, and strategic business planning at Sejong University, Seoul.</p>
+            <span class="status">In Progress</span>
+          </div>
+          <div class="row proj">
+            <h3>Financial Markets Case Studies</h3>
+            <p>Academic research focusing on macroeconomic factors affecting Asian equities and global forex liquidity.</p>
+            <span class="status">Completed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: TECH STACK -->
+      <div class="tab-pane" id="tab-tech">
+        <div class="rows" style="margin-top: 1rem;">
+          <div class="row proj">
+            <h3>Python & Data Science</h3>
+            <p>Pandas, NumPy, and algorithmic modeling libraries for quantitative market analysis.</p>
+            <span class="status">Proficient</span>
+          </div>
+          <div class="row proj">
+            <h3>Web Engineering</h3>
+            <p>HTML5, Modern CSS3, JavaScript (ES6+), responsive design, and Netlify deployment.</p>
+            <span class="status">Experienced</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy" class="ivory">
+    <div class="wrap">
+      <h2 data-i18n="philosophyTitle">Philosophy</h2>
+
+      <ul class="lines">
+        <li data-i18n="belief1">Discipline is ambition practised daily.</li>
+        <li data-i18n="belief2">Learn in public, claim only what is earned.</li>
+        <li data-i18n="belief3">Build slowly, so the foundation can carry more.</li>
+      </ul>
+
+      <p class="note" data-i18n="philosophyNote">
+        The goal is a long-term life built on markets, technology and steady skill-building, with a reputation that comes from real work.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap split">
+      <h2 data-i18n="contactTitle">Contact</h2>
+
+      <div>
+        <p data-i18n="contactIntro">
+          For collaboration, questions or opportunities, reach out through any of these channels.
+        </p>
+
+        <ul class="links">
+          <li>
+            <span>GitHub</span>
+            <a href="https://github.com/Nayimov04"
+              target="_blank" rel="noopener noreferrer">
+              github.com/Nayimov04
+            </a>
+          </li>
+
+          <li>
+            <span data-i18n="personalEmail">Personal email</span>
+            <a href="mailto:Mr.Nayimov@gmail.com">Mr.Nayimov@gmail.com</a>
+          </li>
+
+          <li>
+            <span data-i18n="universityEmail">University email</span>
+            <a href="mailto:unayimov@sju.ac.kr">unayimov@sju.ac.kr</a>
+          </li>
+
+          <li>
+            <span>LinkedIn</span>
+            <a href="https://www.linkedin.com/in/ulugbek-nayimov-4b9783261/"
+              target="_blank" rel="noopener noreferrer">
+              linkedin.com/in/ulugbek-nayimov-4b9783261
+            </a>
+          </li>
+
+          <li>
+            <span>Instagram</span>
+            <a href="https://www.instagram.com/unayimov7/"
+              target="_blank" rel="noopener noreferrer">
+              instagram.com/unayimov7
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; <span id="year"></span> Nayimov Ulugbek</span>
+    <span data-i18n="footerLocation">Seoul, South Korea</span>
+  </div>
+</footer>
+
+<script>
+/* TRANSLATIONS */
+const translations = {
+  en: {
+    pageTitle: "Nayimov Ulugbek | Sejong University Student, Trader & Developer",
+    description: "The official website of Nayimov Ulugbek — Sejong University business student, quantitative trader, and technology developer.",
+    skip: "Skip to content",
+    clockLabel: "LOCAL TIME",
+    languageLabel: "Language",
+    menu: "Menu",
+    navAbout: "About",
+    navFocus: "Focus",
+    navProjects: "Projects",
+    navPhilosophy: "Philosophy",
+    navContact: "Contact",
+    tagline: "Sejong University Student | Quantitative Trader & Technology Developer.",
+    viewProjects: "View projects",
+    getInTouch: "Get in touch",
+    aboutTitle: "About",
+    about1: "I am a business student at Sejong University in Seoul, originally from Uzbekistan. My work sits where business, financial markets and technology meet.",
+    about2: "I study how markets move, practise trading with discipline, and build software to understand and automate what I learn. Alongside my studies I train regularly, because a clear mind and a steady routine are part of the work.",
+    about3: "This website is a record of that journey. It separates what I have completed, what I am building now, and what I plan to do next.",
+    focusTitle: "Areas of focus",
+    businessTitle: "Business and entrepreneurship",
+    businessText: "Studying how companies are built and run, and testing business ideas with small, honest experiments.",
+    financeTitle: "Finance and investment",
+    financeText: "Financial markets, trading research and analysis, with an emphasis on risk management and long-term consistency.",
+    technologyTitle: "Technology and AI",
+    technologyText: "Programming and automation in Python, and applying artificial intelligence to practical financial problems.",
+    projectsTitle: "Portfolio & Projects",
+    projectsIntro: "Explore my work across quantitative trading, Sejong University research, and software development.",
+    tabProjects: "Projects",
+    tabTrading: "Trading & Quants",
+    tabSejong: "Sejong University",
+    tabTech: "Tech Stack",
+    websiteTitle: "Official website",
+    websiteText: "A professional digital identity built with HTML, CSS and JavaScript, hosted on Netlify.",
+    tradingTitle: "AI trading research tool",
+    tradingText: "A planned Python project to analyse forex market data and explore trading ideas with AI for learning and research.",
+    assistantTitle: "Personal AI assistant",
+    assistantText: "A planned assistant for market-price monitoring and personal notifications.",
+    inProgress: "In progress",
+    planned: "Planned",
+    philosophyTitle: "Philosophy",
+    belief1: "Discipline is ambition practised daily.",
+    belief2: "Learn in public, claim only what is earned.",
+    belief3: "Build slowly, so the foundation can carry more.",
+    philosophyNote: "The goal is a long-term life built on markets, technology and steady skill-building, with a reputation that comes from real work.",
+    contactTitle: "Contact",
+    contactIntro: "For collaboration, questions or opportunities, reach out through any of these channels.",
+    personalEmail: "Personal email",
+    universityEmail: "University email",
+    footerLocation: "Seoul, South Korea"
+  },
+
+  ko: {
+    pageTitle: "나이모프 울루그벡 | 세종대학교 학생, 트레이더 및 개발자",
+    description: "나이모프 울루그벡의 공식 웹사이트입니다. 세종대학교 경영학도, 퀀트 트레이더, 기술 개발자.",
+    skip: "본문으로 건너뛰기",
+    clockLabel: "현재 시각",
+    languageLabel: "언어",
+    menu: "메뉴",
+    navAbout: "소개",
+    navFocus: "관심 분야",
+    navProjects: "프로젝트",
+    navPhilosophy: "철학",
+    navContact: "연락처",
+    tagline: "세종대학교 학생 | 퀀트 트레이더 & 기술 개발자",
+    viewProjects: "프로젝트 보기",
+    getInTouch: "연락하기",
+    aboutTitle: "소개",
+    about1: "저는 우즈베키스탄 출신으로 서울 세종대학교에서 경영학을 공부하고 있습니다. 저의 관심 분야는 비즈니스, 금융시장 및 기술이 만나는 지점에 있습니다.",
+    about2: "시장의 움직임을 공부하고, 규율 있는 트레이딩을 연습하며, 배운 내용을 이해하고 자동화하기 위한 소프트웨어를 개발하고 있습니다. 꾸준한 운동과 생활 습관도 중요하게 생각합니다.",
+    about3: "이 웹사이트는 저의 성장 과정을 기록합니다. 완료한 일, 현재 진행 중인 일, 앞으로 계획한 일을 구분하여 소개합니다.",
+    focusTitle: "주요 관심 분야",
+    businessTitle: "비즈니스와 기업가정신",
+    businessText: "기업이 만들어지고 운영되는 방식을 공부하며, 현실적인 실험을 통해 사업 아이디어를 검토합니다.",
+    financeTitle: "금융과 투자",
+    financeText: "금융시장, 트레이딩 연구 및 분석을 공부하며 위험 관리와 장기적인 일관성을 중요하게 생각합니다.",
+    technologyTitle: "기술과 인공지능",
+    technologyText: "Python 프로그래밍과 자동화를 배우고, 실제 금융 문제에 인공지능을 적용하는 방법을 탐구합니다.",
+    projectsTitle: "포트폴리오 및 프로젝트",
+    projectsIntro: "퀀트 트레이딩, 세종대학교 연구, 소프트웨어 개발 전반에 걸친 저의 작업들을 확인하세요.",
+    tabProjects: "프로젝트",
+    tabTrading: "트레이딩 & 퀀트",
+    tabSejong: "세종대학교",
+    tabTech: "기술 스택",
+    websiteTitle: "공식 웹사이트",
+    websiteText: "HTML, CSS 및 JavaScript로 구축하고 Netlify에서 호스팅하는 전문 디지털 프로필입니다.",
+    tradingTitle: "AI 트레이딩 연구 도구",
+    tradingText: "외환시장 데이터를 분석하고 학습 및 연구를 위해 AI로 트레이딩 아이디어를 탐구하는 Python 프로젝트입니다.",
+    assistantTitle: "개인 AI 비서",
+    assistantText: "시장 가격을 모니터링하고 개인 알림을 제공하는 것을 목표로 하는 프로젝트입니다.",
+    inProgress: "진행 중",
+    planned: "계획 중",
+    philosophyTitle: "철학",
+    belief1: "규율은 매일 실천하는 야망입니다.",
+    belief2: "배움은 공개적으로, 성과는 정직하게.",
+    belief3: "더 큰 미래를 위해 기초부터 천천히 쌓습니다.",
+    philosophyNote: "금융시장과 기술을 바탕으로 꾸준히 역량을 키우고, 실제 노력으로 신뢰를 쌓는 장기적인 삶을 목표로 합니다.",
+    contactTitle: "연락처",
+    contactIntro: "협업, 질문 또는 기회에 관한 문의는 아래 채널로 연락해 주세요.",
+    personalEmail: "개인 이메일",
+    universityEmail: "학교 이메일",
+    footerLocation: "대한민국 서울"
+  },
+
+  uz: {
+    pageTitle: "Nayimov Ulugbek | Sejong Universiteti Talabasi, Treyder va Dasturchi",
+    description: "Nayimov Ulugbekning rasmiy veb-sayti. Sejong universiteti talabasi, miqdoriy treyder va texnologiya dasturchisi.",
+    skip: "Asosiy kontentga o‘tish",
+    clockLabel: "MAHALLIY VAQT",
+    languageLabel: "Til",
+    menu: "Menyu",
+    navAbout: "Men haqimda",
+    navFocus: "Yo‘nalishlar",
+    navProjects: "Loyihalar",
+    navPhilosophy: "Falsafa",
+    navContact: "Aloqa",
+    tagline: "Sejong Universiteti Talabasi | Miqdoriy Treyder & Dasturchi.",
+    viewProjects: "Loyihalarni ko‘rish",
+    getInTouch: "Bog‘lanish",
+    aboutTitle: "Men haqimda",
+    about1: "Men O‘zbekistonlikman va Sejong universitetida, Seul shahrida biznes yo‘nalishida tahsil olaman. Qiziqishlarim biznes, moliya bozorlari va texnologiyalar kesishgan nuqtada jamlangan.",
+    about2: "Bozorlar harakatini o‘rganaman, intizom bilan treydingni mashq qilaman va o‘rganganlarimni tushunish hamda avtomatlashtirish uchun dasturiy vositalar yarataman.",
+    about3: "Ushbu veb-sayt mening rivojlanish yo‘limni aks ettiradi. Unda yakunlangan ishlar, hozir olib borilayotgan ishlar va kelajakdagi rejalar alohida ko‘rsatiladi.",
+    focusTitle: "Asosiy yo‘nalishlar",
+    businessTitle: "Biznes va tadbirkorlik",
+    businessText: "Kompaniyalar qanday tashkil etilishi va boshqarilishini o‘rganish, biznes g‘oyalarini amaliy sinovlardan o‘tkazish.",
+    financeTitle: "Moliya va investitsiya",
+    financeText: "Moliya bozorlari, treyding tadqiqotlari va tahlili. Risk boshqaruvi va uzoq muddatli izchillik.",
+    technologyTitle: "Texnologiya va sun’iy intellekt",
+    technologyText: "Python dasturlash va avtomatlashtirishni o‘rganish, sun’iy intellektni moliyaviy masalalarda qo‘llash.",
+    projectsTitle: "Portfolio va Loyihalar",
+    projectsIntro: "Miqdoriy treyding, Sejong universiteti tadqiqotlari va dasturiy ta'minot bo'yicha ishlarim bilan tanishing.",
+    tabProjects: "Loyihalar",
+    tabTrading: "Treyding & Kvant",
+    tabSejong: "Sejong Universiteti",
+    tabTech: "Texnologiyalar",
+    websiteTitle: "Rasmiy veb-sayt",
+    websiteText: "HTML, CSS va JavaScript yordamida yaratilgan hamda Netlify platformasida joylashtirilgan professional raqamli profil.",
+    tradingTitle: "AI treyding tadqiqot vositasi",
+    tradingText: "Forex bozor ma’lumotlarini tahlil qilish uchun mo‘ljallangan Python loyihasi.",
+    assistantTitle: "Shaxsiy AI yordamchi",
+    assistantText: "Bozor narxlarini kuzatish va shaxsiy bildirishnomalar yuborishga mo‘ljallangan loyiha.",
+    inProgress: "Jarayonda",
+    planned: "Rejalashtirilgan",
+    philosophyTitle: "Falsafa",
+    belief1: "Intizom — har kuni amalda namoyon bo‘ladigan ambitsiya.",
+    belief2: "Ommaviy o‘rgan, faqat erishgan natijangni da’vo qil.",
+    belief3: "Poydevor mustahkam bo‘lishi uchun shoshilmasdan qur.",
+    philosophyNote: "Maqsadim — moliya bozorlari va texnologiyaga tayangan, doimiy o‘sish va haqiqiy mehnat orqali shakllangan obro‘ga ega hayot qurish.",
+    contactTitle: "Aloqa",
+    contactIntro: "Hamkorlik, savollar yoki imkoniyatlar bo‘yicha quyidagi kanallar orqali bog‘lanishingiz mumkin.",
+    personalEmail: "Shaxsiy email",
+    universityEmail: "Universitet emaili",
+    footerLocation: "Seul, Janubiy Koreya"
+  },
+
+  ru: {
+    pageTitle: "Nayimov Ulugbek | Студент Университета Седжон, Трейдер и Разработчик",
+    description: "Официальный сайт Nayimov Ulugbek — студент Седжонского университета, квантитативный трейдер и разработчик.",
+    skip: "Перейти к содержанию",
+    clockLabel: "МЕСТНОЕ ВРЕМЯ",
+    languageLabel: "Язык",
+    menu: "Меню",
+    navAbout: "Обо мне",
+    navFocus: "Направления",
+    navProjects: "Проекты",
+    navPhilosophy: "Философия",
+    navContact: "Контакты",
+    tagline: "Студент Университета Седжон | Квантитативный Трейдер и Разработчик.",
+    viewProjects: "Посмотреть проекты",
+    getInTouch: "Связаться",
+    aboutTitle: "Обо мне",
+    about1: "Я изучаю бизнес в Университете Седжон в Сеуле и родом из Узбекистана. Мои интересы находятся на пересечении бизнеса, финансовых рынков и технологий.",
+    about2: "Я изучаю движение рынков, практикую дисциплинированный трейдинг и создаю программные инструменты.",
+    about3: "Этот сайт отражает мой путь развития. Здесь отдельно представлены завершённые работы и планы.",
+    focusTitle: "Основные направления",
+    businessTitle: "Бизнес и предпринимательство",
+    businessText: "Изучение того, как создаются и управляются компании, проверка бизнес-идей.",
+    financeTitle: "Финансы и инвестиции",
+    financeText: "Финансовые рынки, исследования и анализ трейдинга с акцентом на управление рисками.",
+    technologyTitle: "Технологии и искусственный интеллект",
+    technologyText: "Изучение программирования и автоматизации на Python, применение ИИ в финансовых задачах.",
+    projectsTitle: "Портфолио и Проекты",
+    projectsIntro: "Ознакомьтесь с моими работами в сфере квантитативного трейдинга, исследований в Университете Седжон и разработки.",
+    tabProjects: "Проекты",
+    tabTrading: "Трейдинг и Кванты",
+    tabSejong: "Университет Седжон",
+    tabTech: "Стек технологий",
+    websiteTitle: "Официальный сайт",
+    websiteText: "Профессиональное цифровое представительство на HTML, CSS и JavaScript.",
+    tradingTitle: "Инструмент для исследований AI-трейдинга",
+    tradingText: "Планируемый проект на Python для анализа рыночных данных.",
+    assistantTitle: "Персональный AI-помощник",
+    assistantText: "Помощник для отслеживания рыночных цен.",
+    inProgress: "В процессе",
+    planned: "Запланировано",
+    philosophyTitle: "Философия",
+    belief1: "Дисциплина — это амбиции, воплощаемые каждый день.",
+    belief2: "Учись открыто, заявляй только о заслуженном.",
+    belief3: "Строй постепенно, чтобы фундамент выдержал большее.",
+    philosophyNote: "Моя цель — построить жизнь на основе финансовых рынков и технологий.",
+    contactTitle: "Контакты",
+    contactIntro: "Для сотрудничества и вопросов свяжитесь со мной.",
+    personalEmail: "Личная почта",
+    universityEmail: "Университетская почта",
+    footerLocation: "Сеул, Южная Корея"
+  },
+
+  es: {
+    pageTitle: "Nayimov Ulugbek | Estudiante de la Universidad Sejong, Trader y Desarrollador",
+    description: "Sitio web oficial de Nayimov Ulugbek — estudiante de negocios en Sejong, trader cuantitativo y desarrollador.",
+    skip: "Ir al contenido",
+    clockLabel: "HORA LOCAL",
+    languageLabel: "Idioma",
+    menu: "Menú",
+    navAbout: "Sobre mí",
+    navFocus: "Áreas de interés",
+    navProjects: "Proyectos",
+    navPhilosophy: "Filosofía",
+    navContact: "Contacto",
+    tagline: "Estudiante de la Universidad Sejong | Trader Cuantitativo y Desarrollador.",
+    viewProjects: "Ver proyectos",
+    getInTouch: "Contactar",
+    aboutTitle: "Sobre mí",
+    about1: "Soy estudiante de negocios en la Universidad Sejong de Seúl y originario de Uzbekistán.",
+    about2: "Estudio el movimiento de los mercados, practico el trading con disciplina y desarrollo software.",
+    about3: "Este sitio web documenta mi trayectoria y proyectos futuros.",
+    focusTitle: "Áreas de interés",
+    businessTitle: "Negocios y emprendimiento",
+    businessText: "Estudiar cómo se crean y gestionan las empresas.",
+    financeTitle: "Finanzas e inversión",
+    financeText: "Mercados financieros y análisis de trading con gestión de riesgo.",
+    technologyTitle: "Tecnología e inteligencia artificial",
+    technologyText: "Programación y automatización con Python.",
+    projectsTitle: "Portafolio y Proyectos",
+    projectsIntro: "Explora mi trabajo en trading cuantitativo, investigación en Sejong y desarrollo.",
+    tabProjects: "Proyectos",
+    tabTrading: "Trading y Cuánticos",
+    tabSejong: "Univ. Sejong",
+    tabTech: "Tecnologías",
+    websiteTitle: "Sitio web oficial",
+    websiteText: "Identidad digital profesional en HTML, CSS y JavaScript.",
+    tradingTitle: "Herramienta de investigación de trading con IA",
+    tradingText: "Proyecto en Python para analizar datos de mercado.",
+    assistantTitle: "Asistente personal de IA",
+    assistantText: "Asistente para supervisar precios de mercado.",
+    inProgress: "En desarrollo",
+    planned: "Planificado",
+    philosophyTitle: "Filosofía",
+    belief1: "La disciplina es la ambición practicada cada día.",
+    belief2: "Aprende en público y reclama solo lo ganado.",
+    belief3: "Construye despacio para que los cimientos sostengan más.",
+    philosophyNote: "Mi objetivo es construir una vida a largo plazo basada en mercados y tecnología.",
+    contactTitle: "Contacto",
+    contactIntro: "Para colaboraciones o preguntas, contáctame.",
+    personalEmail: "Correo personal",
+    universityEmail: "Correo universitario",
+    footerLocation: "Seúl, Corea del Sur"
+  },
+
+  de: {
+    pageTitle: "Nayimov Ulugbek | Sejong-Student, Trader & Entwickler",
+    description: "Offizielle Website von Nayimov Ulugbek — BWL-Student an der Sejong-Universität, Quant-Trader und Entwickler.",
+    skip: "Zum Inhalt springen",
+    clockLabel: "ORTSZEIT",
+    languageLabel: "Sprache",
+    menu: "Menü",
+    navAbout: "Über mich",
+    navFocus: "Schwerpunkte",
+    navProjects: "Projekte",
+    navPhilosophy: "Philosophie",
+    navContact: "Kontakt",
+    tagline: "Sejong-Student | Quant-Trader & Technologie-Entwickler.",
+    viewProjects: "Projekte ansehen",
+    getInTouch: "Kontakt aufnehmen",
+    aboutTitle: "Über mich",
+    about1: "Ich studiere Wirtschaft an der Sejong-Universität in Seoul und komme aus Usbekistan.",
+    about2: "Ich beschäftige mich mit Marktbewegungen, übe diszipliniertes Trading und entwickle Software.",
+    about3: "Diese Website dokumentiert meinen Entwicklungsweg.",
+    focusTitle: "Schwerpunkte",
+    businessTitle: "Wirtschaft und Unternehmertum",
+    businessText: "Untersuchen, wie Unternehmen aufgebaut und geführt werden.",
+    financeTitle: "Finanzen und Investitionen",
+    financeText: "Finanzmärkte und Trading-Forschung mit Schwerpunkt Risikomanagement.",
+    technologyTitle: "Technologie und künstliche Intelligenz",
+    technologyText: "Programmierung und Automatisierung mit Python.",
+    projectsTitle: "Portfolio & Projekte",
+    projectsIntro: "Entdecken Sie meine Arbeit im quantitativen Trading und der Softwareentwicklung.",
+    tabProjects: "Projekte",
+    tabTrading: "Trading & Quants",
+    tabSejong: "Sejong Universität",
+    tabTech: "Tech-Stack",
+    websiteTitle: "Offizielle Website",
+    websiteText: "Professionelle digitale Identität auf Netlify.",
+    tradingTitle: "KI-Tool für Trading-Forschung",
+    tradingText: "Geplantes Python-Projekt zur Marktdatenanalyse.",
+    assistantTitle: "Persönlicher KI-Assistent",
+    assistantText: "Assistent zur Überwachung von Marktpreisen.",
+    inProgress: "In Arbeit",
+    planned: "Geplant",
+    philosophyTitle: "Philosophie",
+    belief1: "Disziplin ist täglich gelebter Ehrgeiz.",
+    belief2: "Lerne offen und beanspruche nur, was verdient ist.",
+    belief3: "Baue langsam, damit das Fundament mehr tragen kann.",
+    philosophyNote: "Mein Ziel ist ein langfristiges Leben auf Grundlage von Märkten und Technologie.",
+    contactTitle: "Kontakt",
+    contactIntro: "Für Zusammenarbeit oder Fragen erreichen Sie mich hier.",
+    personalEmail: "Persönliche E-Mail",
+    universityEmail: "Universitäts-E-Mail",
+    footerLocation: "Seoul, Südkorea"
+  }
+};
+
+/* LANGUAGE SWITCHING */
+const languageSelect = document.getElementById("language");
+
+function setLanguage(language) {
+  const dictionary = translations[language] || translations.en;
+  document.documentElement.lang = language;
+  document.title = dictionary.pageTitle;
+
+  const description = document.querySelector('meta[name="description"]');
+  if (description) {
+    description.setAttribute("content", dictionary.description);
+  }
+
+  document.querySelectorAll("[data-i18n]").forEach(element => {
+    const key = element.getAttribute("data-i18n");
+    if (dictionary[key]) {
+      element.textContent = dictionary[key];
+    }
+  });
+
+  languageSelect.value = language;
+  try {
+    localStorage.setItem("nayimov-language", language);
+  } catch (error) {}
+}
+
+languageSelect.addEventListener("change", event => {
+  setLanguage(event.target.value);
+});
+
+/* PRELOADER ANIMATION */
+window.addEventListener("load", () => {
+  const preloader = document.getElementById("preloader");
+  const percentEl = document.getElementById("loader-percent");
+  const statusEl = document.getElementById("loader-status");
+  
+  let currentPercent = 0;
+  const statuses = ["Loading Market Data...", "Initializing Quant Models...", "Connecting Sejong Node...", "Ready"];
+  
+  const interval = setInterval(() => {
+    currentPercent += Math.floor(Math.random() * 15) + 8;
+    if (currentPercent >= 100) {
+      currentPercent = 100;
+      clearInterval(interval);
+      setTimeout(() => {
+        preloader.style.opacity = "0";
+        setTimeout(() => preloader.style.display = "none", 500);
+      }, 300);
+    }
+    percentEl.textContent = currentPercent + "%";
+    if (currentPercent > 75) statusEl.textContent = statuses[3];
+    else if (currentPercent > 50) statusEl.textContent = statuses[2];
+    else if (currentPercent > 25) statusEl.textContent = statuses[1];
+  }, 40);
+});
+
+/* 3D TILT EFFECT FOR ID BADGE */
+const tiltCard = document.getElementById("tiltCard");
+if (tiltCard) {
+  const container = tiltCard.parentElement;
+  container.addEventListener("mousemove", (e) => {
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -12;
+    const rotateY = ((x - centerX) / centerX) * 12;
+    tiltCard.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+
+  container.addEventListener("mouseleave", () => {
+    tiltCard.style.transform = "rotateX(0deg) rotateY(0deg)";
+  });
+}
+
+/* MUSIC PLAYER TOGGLE */
+const musicToggleBtn = document.getElementById("music-toggle-btn");
+const bgAudio = document.getElementById("bg-audio");
+const playIcon = document.getElementById("play-icon");
+const musicIconState = document.getElementById("music-icon-state");
+
+let isPlaying = false;
+musicToggleBtn.addEventListener("click", () => {
+  if (isPlaying) {
+    bgAudio.pause();
+    playIcon.className = "fa-solid fa-play";
+    musicIconState.classList.remove("fa-spin");
+    isPlaying = false;
+  } else {
+    bgAudio.play().catch(e => console.log("Audio play blocked:", e));
+    playIcon.className = "fa-solid fa-pause";
+    musicIconState.classList.add("fa-spin");
+    isPlaying = true;
+  }
+});
+
+/* PORTFOLIO TABS INTERACTION */
+const tabButtons = document.querySelectorAll(".tab-btn");
+const tabPanes = document.querySelectorAll(".tab-pane");
+
+tabButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    tabButtons.forEach(b => b.classList.remove("active"));
+    tabPanes.forEach(p => p.classList.remove("active"));
+    
+    btn.classList.add("active");
+    const targetTab = document.getElementById(btn.getAttribute("data-tab"));
+    if (targetTab) {
+      targetTab.classList.add("active");
+    }
+  });
+});
+
+/* LIVE SEOUL CLOCK */
+function updateClock() {
+  const now = new Date();
+  const time = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Seoul",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hourCycle: "h23"
+  }).formatToParts(now);
+
+  const parts = {};
+  time.forEach(part => {
+    if (part.type !== "literal") {
+      parts[part.type] = part.value;
+    }
+  });
+
+  document.getElementById("hours").textContent = parts.hour;
+  document.getElementById("minutes").textContent = parts.minute;
+  document.getElementById("seconds").textContent = parts.second;
+  document.getElementById("clock").setAttribute("datetime", now.toISOString());
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+
+/* MOBILE NAVIGATION */
+const menuButton = document.getElementById("menu");
+const navigation = document.getElementById("nav");
+
+menuButton.addEventListener("click", () => {
+  const isOpen = navigation.classList.toggle("open");
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+});
+
+navigation.addEventListener("click", event => {
+  if (event.target.tagName === "A") {
+    navigation.classList.remove("open");
+    menuButton.setAttribute("aria-expanded", "false");
+  }
+});
+
+/* FOOTER YEAR */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* INITIAL LANGUAGE */
+let initialLanguage = "en";
+try {
+  const savedLanguage = localStorage.getItem("nayimov-language");
+  if (savedLanguage && translations[savedLanguage]) {
+    initialLanguage = savedLanguage;
+  }
+} catch (error) {}
+
+setLanguage(initialLanguage);
+</script>
+
+</body>
+</html>
